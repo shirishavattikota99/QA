@@ -1,0 +1,3950 @@
+{
+  "definitions": {
+    "AffiliateChannel": {
+      "title": "AffiliateChannel",
+      "type": "object",
+      "properties": {
+        "affiliateId": {
+          "type": "string",
+          "x-ref": "Affiliate",
+          "description": "Refers to Affiliate",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "banners": {
+          "type": "array",
+          "items": {
+            "title": "itemOf_banners",
+            "type": "object",
+            "properties": {
+              "bannerId": {
+                "type": "string",
+                "x-ref": "Banner",
+                "description": "Refers to Banner",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "Pending",
+                  "Active",
+                  "Inactive"
+                ]
+              },
+              "_id": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              }
+            },
+            "required": [
+              "bannerId",
+              "status"
+            ]
+          }
+        },
+        "adminFeePercent": {
+          "type": "number",
+          "minimum": 0
+        },
+        "dealType": {
+          "type": "string",
+          "enum": [
+            "CPA",
+            "RevenueSharing",
+            "Hybrid"
+          ]
+        },
+        "baselineDepositAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "dealAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "dealPercentage": {
+          "type": "number",
+          "minimum": 0
+        },
+        "conditionType": {
+          "type": "string",
+          "enum": [
+            "Normal",
+            "QCPA"
+          ]
+        },
+        "baselineDepositCount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "baselineWagerAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "queryParams": {
+          "type": "array",
+          "items": {
+            "title": "itemOf_queryParams",
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "_id": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              }
+            },
+            "required": [
+              "key",
+              "value"
+            ]
+          }
+        },
+        "signupCount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "depositCount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "withdrawCount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "ftdCount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "qFtdCount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "qFtdPlayerIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-ref": "Player",
+            "description": "Refers to Player",
+            "pattern": "^[0-9a-fA-F]{24}$"
+          },
+          "x-ref": "Player",
+          "description": "Refers to Player"
+        },
+        "totalDepositAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "totalQualifiedDepositAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "totalWithdrawAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "totalEarnings": {
+          "type": "number",
+          "minimum": 0
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "affiliateId",
+        "name",
+        "status",
+        "dealType",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        [
+          {
+            "affiliateId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "endpoint": 1
+          },
+          {
+            "unique": true,
+            "sparse": true,
+            "background": true
+          }
+        ]
+      ]
+    },
+    "AffiliateClick": {
+      "title": "AffiliateClick",
+      "type": "object",
+      "properties": {
+        "affiliateId": {
+          "type": "string",
+          "x-ref": "Affiliate",
+          "description": "Refers to Affiliate",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "affiliateChannelId": {
+          "type": "string",
+          "x-ref": "AffiliateChannel",
+          "description": "Refers to AffiliateChannel",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "ipAddress": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "isRegistered": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "affiliateId",
+        "affiliateChannelId",
+        "ipAddress",
+        "userAgent",
+        "device",
+        "createdAt"
+      ],
+      "indexes": [
+        [
+          {
+            "ipAddress": 1
+          },
+          {
+            "background": true
+          }
+        ]
+      ]
+    },
+    "Affiliate": {
+      "title": "Affiliate",
+      "type": "object",
+      "properties": {
+        "countryId": {
+          "type": "string",
+          "x-ref": "Country",
+          "description": "Refers to Country",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 320
+        },
+        "password": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "Male",
+            "Female",
+            "Other"
+          ]
+        },
+        "dob": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "address": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "pinCode": {
+          "type": "string"
+        },
+        "sendNewsletter": {
+          "type": "boolean"
+        },
+        "trafficSource": {
+          "type": "string"
+        },
+        "marketingVia": {
+          "type": "string",
+          "enum": [
+            "Digital",
+            "Media",
+            "Mail",
+            "Advertisements"
+          ]
+        },
+        "telegramId": {
+          "type": "string"
+        },
+        "skypeId": {
+          "type": "string"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "postbackUrls": {
+          "title": "postbackUrls",
+          "type": "object",
+          "properties": {
+            "registerUrl": {
+              "type": "string"
+            },
+            "qFtdUrl": {
+              "type": "string"
+            },
+            "_id": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{24}$"
+            }
+          }
+        },
+        "balance": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "access": {
+          "type": "string",
+          "enum": [
+            "Normal",
+            "Manager"
+          ]
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "status",
+        "firstName",
+        "lastName",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        [
+          {
+            "username": 1
+          },
+          {
+            "unique": true,
+            "background": true
+          }
+        ],
+        [
+          {
+            "email": 1
+          },
+          {
+            "unique": true,
+            "background": true
+          }
+        ]
+      ]
+    },
+    "Asset": {
+      "title": "Asset",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "imagePath": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "imagePath",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": []
+    },
+    "Audit": {
+      "title": "Audit",
+      "type": "object",
+      "properties": {
+        "masterAccountId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "playerId": {
+          "type": "string",
+          "x-ref": "Player",
+          "description": "Refers to Player",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "affiliateId": {
+          "type": "string",
+          "x-ref": "Affiliate",
+          "description": "Refers to Affiliate",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sourceIpAddress": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "CRM",
+            "Game",
+            "Script",
+            "Website"
+          ]
+        },
+        "component": {
+          "type": "string",
+          "enum": [
+            "CodeError",
+            "AffiliatePostback",
+            "AffiliateChannel",
+            "AffiliateClick",
+            "Affiliate",
+            "Asset",
+            "Audit",
+            "Banner",
+            "Category",
+            "Communication",
+            "Country",
+            "DynamicPage",
+            "EmailCredential",
+            "EmailTemplate",
+            "FavouriteGames",
+            "Game",
+            "Language",
+            "PageContent",
+            "PaymentGateway",
+            "PlayerCategorization",
+            "PlayerTicket",
+            "Player",
+            "ProviderRevenueLoss",
+            "Provider",
+            "RetentionToolQueries",
+            "Schedule",
+            "Session",
+            "Setting",
+            "TournamentParticipants",
+            "Tournament",
+            "Transaction",
+            "Translate",
+            "WithdrawRequest"
+          ]
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "Login",
+            "Logout",
+            "Add",
+            "Update",
+            "Delete",
+            "Trash",
+            "Initiate",
+            "Disable",
+            "Report",
+            "Email",
+            "SMS",
+            "Info",
+            "ExternalApi",
+            "PostbackRegisterApi",
+            "PostbackQftdApi"
+          ]
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "Verbose",
+            "Debugging",
+            "Notification",
+            "Informational",
+            "Success",
+            "Warning",
+            "Alert",
+            "Error",
+            "Critical",
+            "Emergency"
+          ]
+        },
+        "activity": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "dbId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "json": {
+          "type": "string"
+        },
+        "multipleLogs": {
+          "type": "array",
+          "items": {
+            "title": "itemOf_multipleLogs",
+            "type": "object",
+            "properties": {
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "activity": {
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "json": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": [
+                  "Verbose",
+                  "Debugging",
+                  "Notification",
+                  "Informational",
+                  "Success",
+                  "Warning",
+                  "Alert",
+                  "Error",
+                  "Critical",
+                  "Emergency"
+                ]
+              },
+              "_id": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              }
+            },
+            "required": [
+              "timestamp"
+            ]
+          }
+        },
+        "readBy": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{24}$"
+          }
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "timestamp",
+        "source",
+        "component",
+        "action",
+        "severity",
+        "summary"
+      ],
+      "indexes": [
+        [
+          {
+            "playerId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "affiliateId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "timestamp": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "component": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "severity": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "summary": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "dbId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "summary": "text"
+          },
+          {
+            "background": true
+          }
+        ]
+      ]
+    },
+    "Banner": {
+      "title": "Banner",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "Website",
+            "Promotion",
+            "Affiliate",
+            "Static"
+          ]
+        },
+        "index": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "imagePath": {
+          "type": "string"
+        },
+        "mobileImagePath": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "title2": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "moreContent": {
+          "type": "string"
+        },
+        "buttonLabel": {
+          "type": "string"
+        },
+        "buttonAction": {
+          "type": "string",
+          "enum": [
+            "Claim",
+            "Play",
+            "Deposit",
+            "Submit Coupon"
+          ]
+        },
+        "noDepositCouponId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "type",
+        "index",
+        "status",
+        "imagePath",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": []
+    },
+    "Category": {
+      "title": "Category",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "index": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "providerIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-ref": "Provider",
+            "description": "Refers to Provider",
+            "pattern": "^[0-9a-fA-F]{24}$"
+          },
+          "x-ref": "Provider",
+          "description": "Refers to Provider"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "index",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        [
+          {
+            "name": 1
+          },
+          {
+            "unique": true,
+            "background": true
+          }
+        ]
+      ]
+    },
+    "Communication": {
+      "title": "Communication",
+      "type": "object",
+      "properties": {
+        "campaignCommunicationId": {
+          "type": "string",
+          "x-ref": "Communication",
+          "description": "Refers to Communication",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "playerId": {
+          "type": "string",
+          "x-ref": "Player",
+          "description": "Refers to Player",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "masterAccountId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Mail",
+            "SMS"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Initiated",
+            "Success",
+            "Failed"
+          ]
+        },
+        "isCampaign": {
+          "type": "boolean"
+        },
+        "recipients": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "sentAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "response": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "selectedEmailId": {
+          "type": "string",
+          "x-ref": "EmailCredential",
+          "description": "Refers to EmailCredential",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "type",
+        "status",
+        "isCampaign",
+        "subject",
+        "sentAt"
+      ],
+      "indexes": []
+    },
+    "Country": {
+      "title": "Country",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "currencyCode": {
+          "type": "string"
+        },
+        "currencyName": {
+          "type": "string"
+        },
+        "currencySymbol": {
+          "type": "string"
+        },
+        "countryCapital": {
+          "type": "string"
+        },
+        "countryLanguage": {
+          "type": "string",
+          "enum": [
+            "Albanian",
+            "Amharic",
+            "Arabic",
+            "Armenian",
+            "Azerbaijani",
+            "Belarusian",
+            "Bengali",
+            "Bosnian",
+            "Bulgarian",
+            "Burmese",
+            "Catalan",
+            "Chinese",
+            "Croatian",
+            "Czech",
+            "Danish",
+            "Divehi",
+            "Dutch",
+            "Dzongkha",
+            "English",
+            "Estonian",
+            "Faroese",
+            "Finnish",
+            "French",
+            "Georgian",
+            "German",
+            "Greek (modern)",
+            "Hebrew (modern)",
+            "Hindi",
+            "Hungarian",
+            "Icelandic",
+            "Indonesian",
+            "Irish",
+            "Italian",
+            "Japanese",
+            "Kalaallisut",
+            "Kazakh",
+            "Khmer",
+            "Kinyarwanda",
+            "Korean",
+            "Kyrgyz",
+            "Lao",
+            "Latvian",
+            "Lithuanian",
+            "Macedonian",
+            "Malay",
+            "Malaysian",
+            "Maltese",
+            "Mongolian",
+            "Nepali",
+            "Norwegian",
+            "Pashto",
+            "Persian (Farsi)",
+            "Polish",
+            "Portuguese",
+            "Romanian",
+            "Russian",
+            "Samoan",
+            "Serbian",
+            "Sinhalese",
+            "Slovak",
+            "Slovene",
+            "Spanish",
+            "Swedish",
+            "Tajik",
+            "Thai",
+            "Turkish",
+            "Turkmen",
+            "Ukrainian",
+            "Uzbek",
+            "Vietnamese"
+          ]
+        },
+        "countryCode": {
+          "type": "string"
+        },
+        "countryCodeAlpha3": {
+          "type": "string"
+        },
+        "countryIsoCode": {
+          "type": "string"
+        },
+        "countryLanguageCode": {
+          "type": "string",
+          "enum": [
+            "sq",
+            "am",
+            "ar",
+            "hy",
+            "az",
+            "be",
+            "bn",
+            "bs",
+            "bg",
+            "my",
+            "ca",
+            "zh-CN",
+            "hr",
+            "cs",
+            "da",
+            "dv",
+            "nl",
+            "dz",
+            "en",
+            "et",
+            "fo",
+            "fi",
+            "fr",
+            "ka",
+            "de",
+            "el",
+            "he",
+            "hi",
+            "hu",
+            "is",
+            "id",
+            "ga",
+            "it",
+            "ja",
+            "kl",
+            "kk",
+            "km",
+            "rw",
+            "ko",
+            "ky",
+            "lo",
+            "lv",
+            "lt",
+            "mk",
+            "ms",
+            "ms-MY",
+            "mt",
+            "mn",
+            "ne",
+            "no",
+            "ps",
+            "fa",
+            "pl",
+            "pt",
+            "ro",
+            "ru",
+            "sm",
+            "sr",
+            "si",
+            "sk",
+            "sl",
+            "es",
+            "sv",
+            "tg",
+            "th",
+            "tr",
+            "tk",
+            "uk",
+            "uz",
+            "vi"
+          ]
+        },
+        "phoneCode": {
+          "type": "string"
+        },
+        "flagEmoji": {
+          "type": "string"
+        },
+        "flagUrl": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "timezones": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "status",
+        "currencyCode",
+        "currencyName",
+        "currencySymbol",
+        "countryCapital",
+        "countryLanguage",
+        "countryCode",
+        "countryIsoCode",
+        "countryLanguageCode",
+        "phoneCode",
+        "flagEmoji",
+        "flagUrl",
+        "timezone"
+      ],
+      "indexes": []
+    },
+    "DashboardConfig": {
+      "title": "DashboardConfig",
+      "type": "object",
+      "properties": {
+        "metricName": {
+          "type": "string"
+        },
+        "metricId": {
+          "type": "string",
+          "enum": [
+            "Top_Depositers",
+            "Top_Games",
+            "Top_Winners",
+            "Top_Payment_Gateways",
+            "Traffic_By_Country",
+            "Total_Deposits",
+            "Player_Visits",
+            "Total_Players_Balance",
+            "Waggering_To_Win",
+            "Deposit_To_Bonus",
+            "Dashboard_Totals"
+          ]
+        },
+        "widgetView": {
+          "type": "string",
+          "enum": [
+            "Chart",
+            "Table",
+            "Card"
+          ]
+        },
+        "widgetType": {
+          "type": "string",
+          "enum": [
+            "Pie",
+            "Bar",
+            "Line",
+            "StackedBar",
+            "Donut",
+            "RadialBar",
+            "MultipleRadialBar",
+            "kpiGraph",
+            "KpiIcon",
+            "DataTable",
+            "RankingTable",
+            "StackedRankingTable",
+            "ProgressBar",
+            "PolarArea"
+          ]
+        },
+        "sizeLayout": {
+          "title": "sizeLayout",
+          "type": "object",
+          "properties": {
+            "w": {
+              "type": "number",
+              "minimum": 1
+            },
+            "h": {
+              "type": "number",
+              "minimum": 1
+            },
+            "x": {
+              "type": "number",
+              "minimum": 0
+            },
+            "y": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "w",
+            "h",
+            "x",
+            "y"
+          ]
+        },
+        "index": {
+          "type": "number"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "metricName",
+        "metricId",
+        "widgetView"
+      ],
+      "indexes": []
+    },
+    "DynamicPage": {
+      "title": "DynamicPage",
+      "type": "object",
+      "properties": {
+        "pageRoute": {
+          "type": "string",
+          "enum": [
+            "home",
+            "casino",
+            "slots",
+            "live-games",
+            "table-games"
+          ]
+        },
+        "carouselCategories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-ref": "Category",
+            "description": "Refers to Category",
+            "pattern": "^[0-9a-fA-F]{24}$"
+          },
+          "x-ref": "Category",
+          "description": "Refers to Category"
+        },
+        "pageCategories": {
+          "type": "array",
+          "items": {
+            "title": "itemOf_pageCategories",
+            "type": "object",
+            "properties": {
+              "categoryId": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              },
+              "sortNumber": {
+                "type": "number",
+                "default": 1
+              },
+              "_id": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              }
+            },
+            "required": [
+              "categoryId"
+            ]
+          }
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "pageRoute",
+        "pageCategories"
+      ],
+      "indexes": [
+        [
+          {
+            "pageRoute": 1
+          },
+          {
+            "unique": true,
+            "background": true
+          }
+        ]
+      ]
+    },
+    "EmailCredential": {
+      "title": "EmailCredential",
+      "type": "object",
+      "properties": {
+        "mailHost": {
+          "type": "string"
+        },
+        "mailPort": {
+          "type": "number"
+        },
+        "mailStatus": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "mailTls": {
+          "type": "boolean",
+          "default": false
+        },
+        "mailSenderName": {
+          "type": "string"
+        },
+        "mailSenderEmail": {
+          "type": "string"
+        },
+        "mailSenderPassword": {
+          "type": "string"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "mailHost",
+        "mailPort",
+        "mailStatus",
+        "mailSenderName",
+        "mailSenderEmail",
+        "mailSenderPassword"
+      ],
+      "indexes": []
+    },
+    "EmailTemplate": {
+      "title": "EmailTemplate",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "htmlContent": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Automate",
+            "Custom"
+          ],
+          "default": "Custom"
+        },
+        "automateType": {
+          "type": "string",
+          "enum": [
+            "Player_Register",
+            "Forgot_Password",
+            "Deposit_Success",
+            "Withdraw_Request"
+          ]
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "htmlContent",
+        "type"
+      ],
+      "indexes": [
+        [
+          {
+            "automateType": 1
+          },
+          {
+            "unique": true,
+            "sparse": true,
+            "background": true
+          }
+        ]
+      ]
+    },
+    "FavouriteGames": {
+      "title": "FavouriteGame",
+      "type": "object",
+      "properties": {
+        "playerId": {
+          "type": "string",
+          "x-ref": "Player",
+          "description": "Refers to Player",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "gameId": {
+          "type": "string",
+          "x-ref": "Game",
+          "description": "Refers to Game",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "playerId",
+        "gameId",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": []
+    },
+    "Game": {
+      "title": "Game",
+      "type": "object",
+      "properties": {
+        "masterProviderId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "providerId": {
+          "type": "string",
+          "x-ref": "Provider",
+          "description": "Refers to Provider",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "categoryIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-ref": "Category",
+            "description": "Refers to Category",
+            "pattern": "^[0-9a-fA-F]{24}$"
+          },
+          "x-ref": "Category",
+          "description": "Refers to Category"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "launchUrl": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "imageAvailable": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sortDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "masterProviderId",
+        "providerId",
+        "categoryIds",
+        "name",
+        "status",
+        "launchUrl",
+        "imageUrl",
+        "imageAvailable",
+        "createdAt",
+        "updatedAt",
+        "sortDate"
+      ],
+      "indexes": [
+        [
+          {
+            "providerId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "categoryIds": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "name": 1
+          },
+          {
+            "background": true
+          }
+        ]
+      ]
+    },
+    "Language": {
+      "title": "Language",
+      "type": "object",
+      "properties": {
+        "languageName": {
+          "type": "string",
+          "enum": [
+            "Albanian",
+            "Amharic",
+            "Arabic",
+            "Armenian",
+            "Azerbaijani",
+            "Belarusian",
+            "Bengali",
+            "Bosnian",
+            "Bulgarian",
+            "Burmese",
+            "Catalan",
+            "Chinese",
+            "Croatian",
+            "Czech",
+            "Danish",
+            "Divehi",
+            "Dutch",
+            "Dzongkha",
+            "English",
+            "Estonian",
+            "Faroese",
+            "Finnish",
+            "French",
+            "Georgian",
+            "German",
+            "Greek (modern)",
+            "Hebrew (modern)",
+            "Hindi",
+            "Hungarian",
+            "Icelandic",
+            "Indonesian",
+            "Irish",
+            "Italian",
+            "Japanese",
+            "Kalaallisut",
+            "Kazakh",
+            "Khmer",
+            "Kinyarwanda",
+            "Korean",
+            "Kyrgyz",
+            "Lao",
+            "Latvian",
+            "Lithuanian",
+            "Macedonian",
+            "Malay",
+            "Malaysian",
+            "Maltese",
+            "Mongolian",
+            "Nepali",
+            "Norwegian",
+            "Pashto",
+            "Persian (Farsi)",
+            "Polish",
+            "Portuguese",
+            "Romanian",
+            "Russian",
+            "Samoan",
+            "Serbian",
+            "Sinhalese",
+            "Slovak",
+            "Slovene",
+            "Spanish",
+            "Swedish",
+            "Tajik",
+            "Thai",
+            "Turkish",
+            "Turkmen",
+            "Ukrainian",
+            "Uzbek",
+            "Vietnamese"
+          ]
+        },
+        "i18n": {
+          "type": "string",
+          "enum": [
+            "sq",
+            "am",
+            "ar",
+            "hy",
+            "az",
+            "be",
+            "bn",
+            "bs",
+            "bg",
+            "my",
+            "ca",
+            "zh-CN",
+            "hr",
+            "cs",
+            "da",
+            "dv",
+            "nl",
+            "dz",
+            "en",
+            "et",
+            "fo",
+            "fi",
+            "fr",
+            "ka",
+            "de",
+            "el",
+            "he",
+            "hi",
+            "hu",
+            "is",
+            "id",
+            "ga",
+            "it",
+            "ja",
+            "kl",
+            "kk",
+            "km",
+            "rw",
+            "ko",
+            "ky",
+            "lo",
+            "lv",
+            "lt",
+            "mk",
+            "ms",
+            "ms-MY",
+            "mt",
+            "mn",
+            "ne",
+            "no",
+            "ps",
+            "fa",
+            "pl",
+            "pt",
+            "ro",
+            "ru",
+            "sm",
+            "sr",
+            "si",
+            "sk",
+            "sl",
+            "es",
+            "sv",
+            "tg",
+            "th",
+            "tr",
+            "tk",
+            "uk",
+            "uz",
+            "vi"
+          ]
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "countryId": {
+          "type": "string",
+          "x-ref": "Country",
+          "description": "Refers to Country",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "publishStartAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "publishEndAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "publishStatus": {
+          "type": "string",
+          "enum": [
+            "Success",
+            "Failed"
+          ]
+        },
+        "publishMessage": {
+          "type": "string"
+        },
+        "auditId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "languageName",
+        "i18n",
+        "displayName",
+        "countryId",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        [
+          {
+            "languageName": 1
+          },
+          {
+            "unique": true,
+            "background": true
+          }
+        ]
+      ]
+    },
+    "PageContent": {
+      "title": "PageContent",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string",
+          "enum": [
+            "Footer",
+            "Sidebar"
+          ]
+        },
+        "index": {
+          "type": "number"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "title",
+        "position",
+        "endpoint",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": []
+    },
+    "PaymentGateway": {
+      "title": "PaymentGateway",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "processor": {
+          "type": "string"
+        },
+        "depositorType": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "methods": {
+          "type": "array",
+          "items": {
+            "title": "itemOf_methods",
+            "type": "object",
+            "properties": {
+              "method": {
+                "type": "string"
+              },
+              "isAllCurrencies": {
+                "type": "boolean"
+              },
+              "supportedCurrencies": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "isCryptoCurrency": {
+                "type": "boolean"
+              },
+              "cryptoNetworks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "isWorldwide": {
+                "type": "boolean"
+              },
+              "allowedCountries": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "x-ref": "Country",
+                  "description": "Refers to Country",
+                  "pattern": "^[0-9a-fA-F]{24}$"
+                },
+                "x-ref": "Country",
+                "description": "Refers to Country"
+              },
+              "blockedCountries": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "x-ref": "Country",
+                  "description": "Refers to Country",
+                  "pattern": "^[0-9a-fA-F]{24}$"
+                },
+                "x-ref": "Country",
+                "description": "Refers to Country"
+              },
+              "successFeePercent": {
+                "type": "number",
+                "minimum": 0
+              },
+              "transactionFeeAmount": {
+                "type": "number",
+                "minimum": 0
+              },
+              "refundFeeAmount": {
+                "type": "number",
+                "minimum": 0
+              },
+              "chargebackFeeAmount": {
+                "type": "number",
+                "minimum": 0
+              },
+              "_id": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              }
+            },
+            "required": [
+              "method",
+              "isAllCurrencies",
+              "isWorldwide",
+              "successFeePercent",
+              "transactionFeeAmount",
+              "refundFeeAmount",
+              "chargebackFeeAmount"
+            ]
+          }
+        },
+        "rollingReservePercent": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rollingReserveReturnDays": {
+          "type": "number",
+          "minimum": 0
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "processor",
+        "depositorType",
+        "status",
+        "methods",
+        "rollingReservePercent",
+        "rollingReserveReturnDays",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": []
+    },
+    "PlayerCategorization": {
+      "title": "PlayerCategorization",
+      "type": "object",
+      "properties": {
+        "categorizationName": {
+          "type": "string"
+        },
+        "categorizationLevel": {
+          "type": "string"
+        },
+        "categorizationColor": {
+          "type": "string"
+        },
+        "totalPlayers": {
+          "type": "number",
+          "default": 0
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "categorizationName",
+        "categorizationLevel",
+        "categorizationColor"
+      ],
+      "indexes": []
+    },
+    "PlayerTicket": {
+      "title": "PlayerTicket",
+      "type": "object",
+      "properties": {
+        "playerId": {
+          "type": "string",
+          "x-ref": "Player",
+          "description": "Refers to Player",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "issueType": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Open",
+            "In Progress",
+            "Resolved",
+            "Closed"
+          ],
+          "default": "Open"
+        },
+        "comment": {
+          "type": "array",
+          "items": {
+            "title": "itemOf_comment",
+            "type": "object",
+            "properties": {
+              "playerId": {
+                "type": "string",
+                "x-ref": "Player",
+                "description": "Refers to Player",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              },
+              "accountId": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "_id": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              }
+            },
+            "required": [
+              "comment",
+              "createdAt"
+            ]
+          }
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "playerId"
+      ],
+      "indexes": []
+    },
+    "Player": {
+      "title": "Player",
+      "type": "object",
+      "properties": {
+        "countryId": {
+          "type": "string",
+          "x-ref": "Country",
+          "description": "Refers to Country",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "username": {
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "playToken": {
+          "type": "string"
+        },
+        "loginNumber": {
+          "type": "number"
+        },
+        "totalBalance": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "realBalance": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "bonusBalance": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "entriesBalance": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "winningBalance": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalDepositAmount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalWithdrawAmount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalWithdrawPendingAmount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalBonusCreditAmount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalRealBetAmount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalRealWinAmount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalBonusBetAmount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalBonusWinAmount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalDepositCount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalWithdrawCount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalRealBetCount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalRealWinCount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalBonusBetCount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "totalBonusWinCount": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "lastDepositAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastWithdrawAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 320
+        },
+        "emailVerified": {
+          "type": "boolean",
+          "default": false
+        },
+        "isConnectWallet": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive",
+            "Fraud"
+          ]
+        },
+        "bonusStatus": {
+          "type": "string",
+          "enum": [
+            "Enable",
+            "Disable"
+          ]
+        },
+        "mailStatus": {
+          "type": "string",
+          "enum": [
+            "Enable",
+            "Disable"
+          ]
+        },
+        "smsStatus": {
+          "type": "string",
+          "enum": [
+            "Enable",
+            "Disable"
+          ]
+        },
+        "i18n": {
+          "type": "string",
+          "enum": [
+            "sq",
+            "am",
+            "ar",
+            "hy",
+            "az",
+            "be",
+            "bn",
+            "bs",
+            "bg",
+            "my",
+            "ca",
+            "zh-CN",
+            "hr",
+            "cs",
+            "da",
+            "dv",
+            "nl",
+            "dz",
+            "en",
+            "et",
+            "fo",
+            "fi",
+            "fr",
+            "ka",
+            "de",
+            "el",
+            "he",
+            "hi",
+            "hu",
+            "is",
+            "id",
+            "ga",
+            "it",
+            "ja",
+            "kl",
+            "kk",
+            "km",
+            "rw",
+            "ko",
+            "ky",
+            "lo",
+            "lv",
+            "lt",
+            "mk",
+            "ms",
+            "ms-MY",
+            "mt",
+            "mn",
+            "ne",
+            "no",
+            "ps",
+            "fa",
+            "pl",
+            "pt",
+            "ro",
+            "ru",
+            "sm",
+            "sr",
+            "si",
+            "sk",
+            "sl",
+            "es",
+            "sv",
+            "tg",
+            "th",
+            "tr",
+            "tk",
+            "uk",
+            "uz",
+            "vi"
+          ]
+        },
+        "password": {
+          "type": "string"
+        },
+        "salt": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string",
+          "enum": [
+            "Male",
+            "Female",
+            "Other"
+          ]
+        },
+        "dob": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "address": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "pinCode": {
+          "type": "string"
+        },
+        "resetPasswordToken": {
+          "type": "string"
+        },
+        "lastLoginDetails": {
+          "title": "lastLoginDetails",
+          "type": "object",
+          "properties": {
+            "ipAddress": {
+              "type": "string"
+            },
+            "userAgent": {
+              "type": "string"
+            },
+            "device": {
+              "type": "string"
+            },
+            "loginAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "_id": {
+              "type": "string",
+              "pattern": "^[0-9a-fA-F]{24}$"
+            }
+          }
+        },
+        "isDepositLimitEnabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "depositLimit": {
+          "type": "number"
+        },
+        "depositLimitFrequency": {
+          "type": "string",
+          "enum": [
+            "Daily",
+            "Weekly",
+            "Monthly",
+            "Quarterly",
+            "Half Yearly",
+            "Yearly"
+          ]
+        },
+        "isBonusLimitEnabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "bonusLimit": {
+          "type": "number"
+        },
+        "bonusLimitFrequency": {
+          "type": "string",
+          "enum": [
+            "Daily",
+            "Weekly",
+            "Monthly",
+            "Quarterly",
+            "Half Yearly",
+            "Yearly"
+          ]
+        },
+        "playBalanceMode": {
+          "type": "string",
+          "enum": [
+            "Real",
+            "Bonus",
+            "All"
+          ]
+        },
+        "loyaltyPoints": {
+          "type": "number"
+        },
+        "loyaltyLevelNumber": {
+          "type": "number"
+        },
+        "loyaltyLevelName": {
+          "type": "string"
+        },
+        "affiliateId": {
+          "type": "string",
+          "x-ref": "Affiliate",
+          "description": "Refers to Affiliate",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "affiliateChannelId": {
+          "type": "string",
+          "x-ref": "AffiliateChannel",
+          "description": "Refers to AffiliateChannel",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "affiliateQueryParams": {
+          "type": "array",
+          "items": {
+            "title": "itemOf_affiliateQueryParams",
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "_id": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              }
+            }
+          }
+        },
+        "playerCategorizationId": {
+          "type": "string",
+          "x-ref": "PlayerCategorization",
+          "description": "Refers to PlayerCategorization",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "licenceLink": {
+          "type": "string"
+        },
+        "captureLink": {
+          "type": "string"
+        },
+        "billLink": {
+          "type": "string"
+        },
+        "licenceStatus": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Approved",
+            "Rejected"
+          ],
+          "default": "Pending"
+        },
+        "captureStatus": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Approved",
+            "Rejected"
+          ],
+          "default": "Pending"
+        },
+        "billStatus": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Approved",
+            "Rejected",
+            "Expired"
+          ],
+          "default": "Pending"
+        },
+        "kycRemarks": {
+          "type": "string"
+        },
+        "kycStatus": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Approved",
+            "Rejected",
+            "Expired",
+            "NoKyc"
+          ],
+          "default": "NoKyc"
+        },
+        "kycVerifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "countryId",
+        "username",
+        "currency",
+        "playToken",
+        "totalBalance",
+        "realBalance",
+        "bonusBalance",
+        "email",
+        "emailVerified",
+        "createdAt",
+        "updatedAt",
+        "status",
+        "bonusStatus",
+        "isDepositLimitEnabled",
+        "isBonusLimitEnabled"
+      ],
+      "indexes": [
+        [
+          {
+            "username": 1
+          },
+          {
+            "unique": true,
+            "background": true
+          }
+        ],
+        [
+          {
+            "email": 1
+          },
+          {
+            "unique": true,
+            "background": true
+          }
+        ],
+        [
+          {
+            "createdAt": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "resetPasswordToken": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "affiliateId": 1
+          },
+          {
+            "background": true
+          }
+        ]
+      ]
+    },
+    "ProviderRevenueLoss": {
+      "title": "ProviderRevenueLoss",
+      "type": "object",
+      "properties": {
+        "carryForwardMonth": {
+          "type": "string"
+        },
+        "reportMonth": {
+          "type": "string"
+        },
+        "masterProviderId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "providerId": {
+          "type": "string",
+          "x-ref": "Provider",
+          "description": "Refers to Provider",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "realRevenueLoss": {
+          "type": "number"
+        },
+        "bonusRevenueLoss": {
+          "type": "number"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "carryForwardMonth",
+        "reportMonth",
+        "masterProviderId",
+        "providerId"
+      ],
+      "indexes": []
+    },
+    "Provider": {
+      "title": "Provider",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "uniqueId": {
+          "type": "string"
+        },
+        "royaltyPercentage": {
+          "type": "number",
+          "default": 15
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "iconTheme": {
+          "type": "string",
+          "enum": [
+            "Light",
+            "Dark",
+            "Custom"
+          ]
+        },
+        "iconLightUrl": {
+          "type": "string"
+        },
+        "iconDarkUrl": {
+          "type": "string"
+        },
+        "iconCustomUrl": {
+          "type": "string"
+        },
+        "backgroundColor": {
+          "type": "string"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "uniqueId",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        [
+          {
+            "name": 1
+          },
+          {
+            "unique": true,
+            "background": true
+          }
+        ],
+        [
+          {
+            "uniqueId": 1
+          },
+          {
+            "unique": true,
+            "background": true
+          }
+        ]
+      ]
+    },
+    "RetentionToolQueries": {
+      "title": "RetentionToolQueries",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "queryJson": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "queryJson",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": []
+    },
+    "Schedule": {
+      "title": "Schedule",
+      "type": "object",
+      "properties": {
+        "retentionToolQueriesId": {
+          "type": "string",
+          "x-ref": "RetentionToolQueries",
+          "description": "Refers to RetentionToolQueries",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "masterAccountId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "emailTemplateId": {
+          "type": "string",
+          "x-ref": "EmailTemplate",
+          "description": "Refers to EmailTemplate",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "frequency": {
+          "type": "string",
+          "enum": [
+            "OneTime",
+            "Daily",
+            "Monthly",
+            "CustomDays"
+          ]
+        },
+        "daysNumber": {
+          "type": "number"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startTime": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string",
+          "default": "UTC"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "SendBulkTransactions",
+            "SendEmail",
+            "SendSMS",
+            "GenerateCsvSendEmail",
+            "GenerateCsvSendSMS",
+            "PlayerCategorization"
+          ]
+        },
+        "requestBodyJson": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastRunAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "retentionToolQueriesId",
+        "name",
+        "status",
+        "frequency",
+        "startTime",
+        "timezone",
+        "action",
+        "requestBodyJson",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": []
+    },
+    "Session": {
+      "title": "Session",
+      "type": "object",
+      "properties": {
+        "playerId": {
+          "type": "string",
+          "x-ref": "Player",
+          "description": "Refers to Player",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "affiliateId": {
+          "type": "string",
+          "x-ref": "Affiliate",
+          "description": "Refers to Affiliate",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "socketIoId": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "loginAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "logoutAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastActiveAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Online",
+            "Away",
+            "Terminated",
+            "Expired",
+            "LoggedOut"
+          ]
+        },
+        "openingBalance": {
+          "type": "number"
+        },
+        "closingBalance": {
+          "type": "number"
+        },
+        "isSessionClosed": {
+          "type": "boolean"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "ipAddress",
+        "userAgent",
+        "device",
+        "loginAt",
+        "lastActiveAt",
+        "status"
+      ],
+      "indexes": [
+        [
+          {
+            "playerId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "affiliateId": 1
+          },
+          {
+            "background": true
+          }
+        ]
+      ]
+    },
+    "Setting": {
+      "title": "Setting",
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "default": "setting-model-id"
+        },
+        "timezone": {
+          "type": "string",
+          "default": "UTC"
+        },
+        "dayStartTime": {
+          "type": "string"
+        },
+        "exportInProgress": {
+          "type": "boolean",
+          "default": false
+        },
+        "loginEmailVerificationRequired": {
+          "type": "boolean"
+        },
+        "mailHost": {
+          "type": "string"
+        },
+        "mailPort": {
+          "type": "number"
+        },
+        "mailStatus": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "mailTls": {
+          "type": "boolean",
+          "default": false
+        },
+        "mailSenderName": {
+          "type": "string"
+        },
+        "mailSenderEmail": {
+          "type": "string"
+        },
+        "mailSenderPassword": {
+          "type": "string"
+        },
+        "smsProvider": {
+          "type": "string",
+          "enum": [
+            "FortyTwo",
+            "Twilio"
+          ]
+        },
+        "smsStatus": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "smsFortytwoApiUrl": {
+          "type": "string"
+        },
+        "smsFortytwoToken": {
+          "type": "string"
+        },
+        "smsTwilioAccountSid": {
+          "type": "string"
+        },
+        "smsTwilioAuthToken": {
+          "type": "string"
+        },
+        "smsTwilioPhone": {
+          "type": "string"
+        },
+        "jackpotMiniAmount": {
+          "type": "number"
+        },
+        "jackpotMinorAmount": {
+          "type": "number"
+        },
+        "jackpotMajorAmount": {
+          "type": "number"
+        },
+        "jackpotGrandAmount": {
+          "type": "number"
+        },
+        "horizontalCategoryId": {
+          "type": "string",
+          "x-ref": "Category",
+          "description": "Refers to Category",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "verticalCategoryId": {
+          "type": "string",
+          "x-ref": "Category",
+          "description": "Refers to Category",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "depositRestrictedMasterProviderIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{24}$"
+          }
+        },
+        "prioritizeMasterProviders": {
+          "type": "array",
+          "items": {
+            "title": "itemOf_prioritizeMasterProviders",
+            "type": "object",
+            "properties": {
+              "masterProviderId": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              },
+              "index": {
+                "type": "number"
+              },
+              "_id": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              }
+            }
+          }
+        },
+        "enableBonusMode": {
+          "type": "boolean"
+        },
+        "realRestrictedMasterProviderIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{24}$"
+          }
+        },
+        "bonusRestrictedMasterProviderIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{24}$"
+          }
+        },
+        "affiliateManagerPassword": {
+          "type": "string"
+        },
+        "kycExpiryDays": {
+          "type": "number"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "timezone"
+      ],
+      "indexes": []
+    },
+    "TournamentParticipants": {
+      "title": "TournamentParticipants",
+      "type": "object",
+      "properties": {
+        "playerId": {
+          "type": "string",
+          "x-ref": "Player",
+          "description": "Refers to Player",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "tournamentId": {
+          "type": "string",
+          "x-ref": "Tournament",
+          "description": "Refers to Tournament",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "totalAmount": {
+          "type": "number",
+          "default": 0
+        },
+        "pointsEarned": {
+          "type": "number",
+          "default": 0
+        },
+        "pendingAmount": {
+          "type": "number",
+          "default": 0
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "playerId",
+        "tournamentId",
+        "totalAmount",
+        "pointsEarned"
+      ],
+      "indexes": []
+    },
+    "Tournament": {
+      "title": "Tournament",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Active",
+            "Inactive"
+          ]
+        },
+        "categoryId": {
+          "type": "string",
+          "x-ref": "Category",
+          "description": "Refers to Category",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "tournamentType": {
+          "type": "string",
+          "enum": [
+            "Deposit",
+            "Bet",
+            "Win"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "wagerToPointRatio": {
+          "type": "number",
+          "default": 10
+        },
+        "prizes": {
+          "type": "array",
+          "items": {
+            "title": "itemOf_prizes",
+            "type": "object",
+            "properties": {
+              "rank": {
+                "type": "number"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "_id": {
+                "type": "string",
+                "pattern": "^[0-9a-fA-F]{24}$"
+              }
+            },
+            "required": [
+              "rank",
+              "amount"
+            ]
+          }
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "title",
+        "startDate",
+        "endDate",
+        "status",
+        "tournamentType",
+        "description",
+        "wagerToPointRatio",
+        "prizes",
+        "imageUrl"
+      ],
+      "indexes": [
+        [
+          {
+            "categoryId": 1
+          },
+          {
+            "background": true
+          }
+        ]
+      ]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "type": "object",
+      "properties": {
+        "playerId": {
+          "type": "string",
+          "x-ref": "Player",
+          "description": "Refers to Player",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "countryId": {
+          "type": "string",
+          "x-ref": "Country",
+          "description": "Refers to Country",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "accountId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "masterProviderId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "gameId": {
+          "type": "string",
+          "x-ref": "Game",
+          "description": "Refers to Game",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "paymentGatewayId": {
+          "type": "string",
+          "x-ref": "PaymentGateway",
+          "description": "Refers to PaymentGateway",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "auditId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "couponId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "playerPaymentMethodId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "affiliateId": {
+          "type": "string",
+          "x-ref": "Affiliate",
+          "description": "Refers to Affiliate",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "affiliateChannelId": {
+          "type": "string",
+          "x-ref": "AffiliateChannel",
+          "description": "Refers to AffiliateChannel",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "paymentMethod": {
+          "type": "string"
+        },
+        "paymentVia": {
+          "type": "string"
+        },
+        "paymentCryptoAddress": {
+          "type": "string"
+        },
+        "cryptoNetwork": {
+          "type": "string"
+        },
+        "cardLastFourDigits": {
+          "type": "number"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "transactionHash": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "Payment",
+            "Game",
+            "Admin",
+            "Affiliate",
+            "Kiosk",
+            "Automate",
+            "Coupon",
+            "Self",
+            "Sports"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Deposit",
+            "Withdraw",
+            "Credit",
+            "Debit",
+            "Bet",
+            "Win",
+            "Rollback"
+          ]
+        },
+        "amountType": {
+          "type": "string",
+          "enum": [
+            "Real",
+            "Bonus",
+            "Real_Bonus"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Failed",
+            "Rejected",
+            "Cancelled",
+            "Success",
+            "Initiated",
+            "Refunded",
+            "Chargeback"
+          ]
+        },
+        "amount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "bonusName": {
+          "type": "string"
+        },
+        "closingRealBalance": {
+          "type": "number",
+          "minimum": 0
+        },
+        "closingBonusBalance": {
+          "type": "number",
+          "minimum": 0
+        },
+        "closingEntriesBalance": {
+          "type": "number",
+          "minimum": 0
+        },
+        "closingWinningBalance": {
+          "type": "number",
+          "minimum": 0
+        },
+        "entriesAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "entriesUsed": {
+          "type": "boolean"
+        },
+        "baseCurrencyAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "depositCurrency": {
+          "type": "string"
+        },
+        "depositCurrencyAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "json": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "splitAmount": {
+          "type": "string"
+        },
+        "errorReason": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "rollbackTransactionId": {
+          "type": "string",
+          "x-ref": "Transaction",
+          "description": "Refers to Transaction",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "depositTransactionId": {
+          "type": "string",
+          "x-ref": "Transaction",
+          "description": "Refers to Transaction",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "winningBetAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "isFtd": {
+          "type": "boolean"
+        },
+        "isQftd": {
+          "type": "boolean"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "playerId",
+        "countryId",
+        "timestamp",
+        "transactionHash",
+        "source",
+        "type",
+        "amountType",
+        "status",
+        "amount",
+        "closingRealBalance",
+        "closingBonusBalance",
+        "baseCurrencyAmount"
+      ],
+      "indexes": [
+        [
+          {
+            "playerId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "paymentGatewayId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "affiliateId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "affiliateChannelId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "paymentMethod": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "timestamp": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "transactionHash": 1
+          },
+          {
+            "unique": true,
+            "background": true
+          }
+        ],
+        [
+          {
+            "type": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "status": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "depositTransactionId": 1
+          },
+          {
+            "background": true
+          }
+        ]
+      ]
+    },
+    "Translate": {
+      "title": "Translate",
+      "type": "object",
+      "properties": {
+        "bannerId": {
+          "type": "string",
+          "x-ref": "Banner",
+          "description": "Refers to Banner",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "providerId": {
+          "type": "string",
+          "x-ref": "Provider",
+          "description": "Refers to Provider",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "categoryId": {
+          "type": "string",
+          "x-ref": "Category",
+          "description": "Refers to Category",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "pageContentId": {
+          "type": "string",
+          "x-ref": "PageContent",
+          "description": "Refers to PageContent",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "languageId": {
+          "type": "string",
+          "x-ref": "Language",
+          "description": "Refers to Language",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "i18n": {
+          "type": "string",
+          "enum": [
+            "sq",
+            "am",
+            "ar",
+            "hy",
+            "az",
+            "be",
+            "bn",
+            "bs",
+            "bg",
+            "my",
+            "ca",
+            "zh-CN",
+            "hr",
+            "cs",
+            "da",
+            "dv",
+            "nl",
+            "dz",
+            "en",
+            "et",
+            "fo",
+            "fi",
+            "fr",
+            "ka",
+            "de",
+            "el",
+            "he",
+            "hi",
+            "hu",
+            "is",
+            "id",
+            "ga",
+            "it",
+            "ja",
+            "kl",
+            "kk",
+            "km",
+            "rw",
+            "ko",
+            "ky",
+            "lo",
+            "lv",
+            "lt",
+            "mk",
+            "ms",
+            "ms-MY",
+            "mt",
+            "mn",
+            "ne",
+            "no",
+            "ps",
+            "fa",
+            "pl",
+            "pt",
+            "ro",
+            "ru",
+            "sm",
+            "sr",
+            "si",
+            "sk",
+            "sl",
+            "es",
+            "sv",
+            "tg",
+            "th",
+            "tr",
+            "tk",
+            "uk",
+            "uz",
+            "vi"
+          ]
+        },
+        "value": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "title2": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "moreContent": {
+          "type": "string"
+        },
+        "buttonLabel": {
+          "type": "string"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "indexes": []
+    },
+    "WithdrawRequest": {
+      "title": "WithdrawRequest",
+      "type": "object",
+      "properties": {
+        "playerId": {
+          "type": "string",
+          "x-ref": "Player",
+          "description": "Refers to Player",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "transactionId": {
+          "type": "string",
+          "x-ref": "Transaction",
+          "description": "Refers to Transaction",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "paymentProcessor": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "baseCurrencyAmount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Pending",
+            "Completed",
+            "Rejected",
+            "Cancelled"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        },
+        "__v": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "playerId",
+        "transactionId",
+        "amount",
+        "baseCurrencyAmount",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        [
+          {
+            "playerId": 1
+          },
+          {
+            "background": true
+          }
+        ],
+        [
+          {
+            "paymentProcessor": 1
+          },
+          {
+            "background": true
+          }
+        ]
+      ]
+    }
+  }
+}

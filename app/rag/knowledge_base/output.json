@@ -1,0 +1,2077 @@
+{
+  "players": {
+    "collection": "players",
+    "fields": {
+      "countryId": {
+        "required": true,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the country record from the countries collection. Identifies the player registered country.",
+        "ref": "countries"
+      },
+      "registeredCountryId": {
+        "required": true,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "ref": "countries"
+      },
+      "username": {
+        "required": true,
+        "description": "Unique human-readable identifier given to the player. Used for login and player identification across the system.",
+        "indexed": true,
+        "unique": true,
+        "background": true
+      },
+      "currency": {
+        "required": true,
+        "description": "Three-letter ISO currency code (e.g., USD, EUR, INR) defining the players wallet currency used for deposits, withdrawals, and gameplay."
+      },
+      "playToken": {
+        "required": true,
+        "description": "Unique cryptographic token generated for the player to authenticate game sessions with integrated game providers."
+      },
+      "loginNumber": {
+        "required": false
+      },
+      "uniqueNumber": {
+        "required": true
+      },
+      "totalBalance": {
+        "required": true,
+        "description": "Total monetary balance available in the players account, calculated as the sum of real, bonus, and any winnings-related balances."
+      },
+      "realBalance": {
+        "required": true,
+        "description": "Amount of real, withdrawable money available in the players wallet."
+      },
+      "bonusBalance": {
+        "required": true,
+        "description": "Amount of bonus funds received through promotions or rewards, subject to wagering rules."
+      },
+      "entriesBalance": {
+        "required": false
+      },
+      "winningBalance": {
+        "required": false
+      },
+      "totalDepositAmount": {
+        "required": false,
+        "description": "Cumulative amount of all successful deposits made by the player across their account lifetime."
+      },
+      "totalWithdrawAmount": {
+        "required": false,
+        "description": "Cumulative amount of all completed withdrawals performed by the player."
+      },
+      "totalWithdrawPendingAmount": {
+        "required": false,
+        "description": "Total amount currently under withdrawal processing or pending approval."
+      },
+      "totalBonusCreditAmount": {
+        "required": false,
+        "description": "Total value of bonus money credited to the player."
+      },
+      "totalRealBetAmount": {
+        "required": false,
+        "description": "Sum of all wager amounts placed using real funds."
+      },
+      "totalRealWinAmount": {
+        "required": false,
+        "description": "Total winnings earned from bets placed with real balance."
+      },
+      "totalBonusBetAmount": {
+        "required": false,
+        "description": "Sum of all wager amounts placed using bonus funds."
+      },
+      "totalBonusWinAmount": {
+        "required": false,
+        "description": "Total winnings earned from bets placed with bonus balance."
+      },
+      "totalDepositCount": {
+        "required": false,
+        "description": "Number of successful deposit transactions performed by the player."
+      },
+      "totalWithdrawCount": {
+        "required": false,
+        "description": "Number of successful withdrawal transactions completed by the player."
+      },
+      "totalRealBetCount": {
+        "required": false,
+        "description": "Count of individual bets placed using real money."
+      },
+      "totalRealWinCount": {
+        "required": false,
+        "description": "Count of winning outcomes obtained from real-money bets."
+      },
+      "totalBonusBetCount": {
+        "required": false,
+        "description": "Number of bets placed using bonus funds."
+      },
+      "totalBonusWinCount": {
+        "required": false,
+        "description": "Number of winning outcomes obtained from bonus bets."
+      },
+      "lastDepositAt": {
+        "required": false,
+        "format": "date-time",
+        "description": "Timestamp indicating when the player last made a successful deposit."
+      },
+      "lastWithdrawAt": {
+        "required": false,
+        "format": "date-time",
+        "description": "Timestamp indicating when the player last completed a withdrawal."
+      },
+      "email": {
+        "required": true,
+        "description": "Unique email address used for authentication, communication, and account recovery.",
+        "indexed": true,
+        "unique": true,
+        "background": true
+      },
+      "emailVerified": {
+        "required": true,
+        "description": "Boolean value indicating whether the player has verified their email through the verification process."
+      },
+      "isConnectWallet": {
+        "required": false,
+        "description": "Indicates if the player has linked an external cryptocurrency wallet to their account."
+      },
+      "createdAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp representing when the player profile was initially created.",
+        "indexed": true,
+        "background": true
+      },
+      "updatedAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp representing the most recent update to the players document."
+      },
+      "status": {
+        "required": true,
+        "enum": [
+          "Pending",
+          "Active",
+          "Inactive",
+          "Fraud"
+        ],
+        "description": "Overall account status: Pending, Active, Inactive, or Fraud."
+      },
+      "bonusStatus": {
+        "required": true,
+        "enum": [
+          "Enable",
+          "Disable"
+        ],
+        "description": "Indicates whether the player is eligible to receive bonus rewards. Can be enabled or disabled."
+      },
+      "mailStatus": {
+        "required": false,
+        "enum": [
+          "Enable",
+          "Disable"
+        ],
+        "description": "Controls whether marketing or system emails are enabled for the player."
+      },
+      "smsStatus": {
+        "required": false,
+        "enum": [
+          "Enable",
+          "Disable"
+        ],
+        "description": "Controls whether SMS notifications are enabled for the player."
+      },
+      "i18n": {
+        "required": false,
+        "enum": [
+          "sq",
+          "am",
+          "ar",
+          "hy",
+          "az",
+          "be",
+          "bn",
+          "bs",
+          "bg",
+          "my",
+          "ca",
+          "zh-CN",
+          "hr",
+          "cs",
+          "da",
+          "dv",
+          "nl",
+          "dz",
+          "en",
+          "et",
+          "fo",
+          "fi",
+          "fr",
+          "ka",
+          "de",
+          "el",
+          "he",
+          "hi",
+          "hu",
+          "is",
+          "id",
+          "ga",
+          "it",
+          "ja",
+          "kl",
+          "kk",
+          "km",
+          "rw",
+          "ko",
+          "ky",
+          "lo",
+          "lv",
+          "lt",
+          "mk",
+          "ms",
+          "ms-MY",
+          "mt",
+          "mn",
+          "ne",
+          "no",
+          "ps",
+          "fa",
+          "pl",
+          "pt",
+          "ro",
+          "ru",
+          "sm",
+          "sr",
+          "si",
+          "sk",
+          "sl",
+          "es",
+          "sv",
+          "tg",
+          "th",
+          "tr",
+          "tk",
+          "uk",
+          "uz",
+          "vi"
+        ],
+        "description": "Language preference code for user interface localization, using standard international language codes."
+      },
+      "password": {
+        "required": false,
+        "description": "Securely hashed password string for login authentication."
+      },
+      "salt": {
+        "required": false,
+        "description": "Random cryptographic salt used to hash the players password."
+      },
+      "mobile": {
+        "required": false,
+        "description": "Players phone number used for communication, verification, and security notifications."
+      },
+      "firstName": {
+        "required": false,
+        "description": "Players personal first name."
+      },
+      "lastName": {
+        "required": false,
+        "description": "Players personal surname or family name."
+      },
+      "gender": {
+        "required": false,
+        "enum": [
+          "Male",
+          "Female",
+          "Other"
+        ],
+        "description": "Gender identity of the player, used for demographic segmentation."
+      },
+      "dob": {
+        "required": false,
+        "format": "date-time",
+        "description": "Players date of birth, used for age verification and responsible gaming checks."
+      },
+      "address": {
+        "required": false,
+        "description": "Primary residential address provided by the player."
+      },
+      "address2": {
+        "required": false,
+        "description": "Secondary address line for additional address details."
+      },
+      "state": {
+        "required": false,
+        "description": "State or province of the players registered address."
+      },
+      "city": {
+        "required": false,
+        "description": "City of the players registered address."
+      },
+      "pinCode": {
+        "required": false,
+        "description": "Postal or ZIP code of the players address."
+      },
+      "resetPasswordToken": {
+        "required": false,
+        "description": "Token generated for password reset workflow, used once per reset attempt.",
+        "indexed": true,
+        "background": true
+      },
+      "lastLoginDetails": {
+        "required": false,
+        "description": "Metadata about the players last login session, such as IP address,loginAt, userAgent, or timestamp."
+      },
+      "isDepositLimitEnabled": {
+        "required": true,
+        "description": "Indicates whether responsible gaming deposit limit rules are active for this player."
+      },
+      "depositLimit": {
+        "required": false,
+        "description": "Monetary limit imposed on how much the player can deposit within a specific timeframe."
+      },
+      "depositLimitFrequency": {
+        "required": false,
+        "enum": [
+          "Daily",
+          "Weekly",
+          "Monthly",
+          "Quarterly",
+          "Half Yearly",
+          "Yearly"
+        ],
+        "description": "Interval for deposit limit enforcement (Daily, Weekly, Monthly, etc.)."
+      },
+      "isBonusLimitEnabled": {
+        "required": true,
+        "description": "Indicates whether bonus usage limits are enforced for this player."
+      },
+      "bonusLimit": {
+        "required": false,
+        "description": "Maximum amount of bonus funds the player is allowed to receive or use within a specified timeframe."
+      },
+      "bonusLimitFrequency": {
+        "required": false,
+        "enum": [
+          "Daily",
+          "Weekly",
+          "Monthly",
+          "Quarterly",
+          "Half Yearly",
+          "Yearly"
+        ],
+        "description": "Frequency interval for evaluating the players bonus limit."
+      },
+      "playBalanceMode": {
+        "required": false,
+        "enum": [
+          "Real",
+          "Bonus",
+          "All"
+        ],
+        "description": "Defines which balance types the player can use during gameplay: Real, Bonus, or All."
+      },
+      "loyaltyPoints": {
+        "required": false,
+        "description": "Total loyalty reward points accumulated by the player from gameplay or promotions."
+      },
+      "loyaltyLevelNumber": {
+        "required": false,
+        "description": "Numeric identifier of the players loyalty tier level."
+      },
+      "loyaltyLevelName": {
+        "required": false,
+        "description": "Readable name of the players loyalty tier (e.g., Silver, Gold, Platinum)."
+      },
+      "affiliateId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "ObjectId referencing the affiliate who referred the player, from the affiliates collection.",
+        "indexed": true,
+        "background": true,
+        "ref": "affiliates"
+      },
+      "affiliateChannelId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "ObjectId referencing the specific affiliate marketing channel that generated the player signup.",
+        "ref": "affiliateChannels"
+      },
+      "affiliateQueryParams": {
+        "required": false,
+        "description": "Raw tracking parameters captured during registration for affiliate attribution."
+      },
+      "wyntaAffiliateClickId": {
+        "required": false
+      },
+      "playerCategorizationId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "Reference to the player categorization or segmentation profile used for behavior analysis.",
+        "ref": "playerCategorizations"
+      },
+      "kycLicenceLink": {
+        "required": false
+      },
+      "kycCaptureLink": {
+        "required": false
+      },
+      "kycBillLink": {
+        "required": false
+      },
+      "kycLicenceStatus": {
+        "required": false,
+        "enum": [
+          "Pending",
+          "Approved",
+          "Rejected",
+          "Expired"
+        ]
+      },
+      "kycCaptureStatus": {
+        "required": false,
+        "enum": [
+          "Pending",
+          "Approved",
+          "Rejected",
+          "Expired"
+        ]
+      },
+      "kycBillStatus": {
+        "required": false,
+        "enum": [
+          "Pending",
+          "Approved",
+          "Rejected",
+          "Expired"
+        ]
+      },
+      "kycRemarks": {
+        "required": false,
+        "description": "Comments or notes added by compliance/KYC officers during document review."
+      },
+      "kycStatus": {
+        "required": false,
+        "enum": [
+          "Pending",
+          "Approved",
+          "Rejected",
+          "Expired",
+          "NoKyc"
+        ],
+        "description": "Overall KYC compliance status of the player (Pending, Approved, Rejected, Expired, NoKyc)."
+      },
+      "kycUpdatedAt": {
+        "required": false,
+        "format": "date-time"
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "Primary MongoDB ObjectId uniquely identifying the player record."
+      },
+      "__v": {
+        "required": false,
+        "description": "Internal document version number maintained by Mongoose for schema migrations."
+      }
+    },
+    "required": [
+      "email",
+      "registeredCountryId",
+      "playToken",
+      "totalBalance",
+      "emailVerified",
+      "bonusBalance",
+      "uniqueNumber",
+      "currency",
+      "status",
+      "countryId",
+      "username",
+      "createdAt",
+      "updatedAt",
+      "isBonusLimitEnabled",
+      "isDepositLimitEnabled",
+      "realBalance",
+      "bonusStatus"
+    ],
+    "indexes": [
+      {
+        "fields": {
+          "username": 1
+        },
+        "options": {
+          "unique": true,
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "email": 1
+        },
+        "options": {
+          "unique": true,
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "createdAt": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "resetPasswordToken": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "affiliateId": 1
+        },
+        "options": {
+          "background": true
+        }
+      }
+    ],
+    "relationships": [
+      {
+        "from_collection": "players",
+        "from_field": "countryId",
+        "to_collection": "countries",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "players",
+        "from_field": "registeredCountryId",
+        "to_collection": "countries",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "players",
+        "from_field": "affiliateId",
+        "to_collection": "affiliates",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "players",
+        "from_field": "affiliateChannelId",
+        "to_collection": "affiliateChannels",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "players",
+        "from_field": "playerCategorizationId",
+        "to_collection": "playerCategorizations",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      }
+    ]
+  },
+  "countries": {
+    "collection": "countries",
+    "fields": {
+      "name": {
+        "required": true,
+        "description": "Official country name used for player registration, regional configuration, and localization settings."
+      },
+      "status": {
+        "required": true,
+        "enum": [
+          "Pending",
+          "Active",
+          "Inactive"
+        ],
+        "description": "Operational status of the country within the platform. Determines whether the country is allowed for registration and gameplay. Values: Pending, Active, Inactive."
+      },
+      "currencyCode": {
+        "required": true,
+        "description": "Three-letter ISO 4217 currency code (e.g., USD, EUR, INR) representing the countrys primary monetary unit used for player transactions."
+      },
+      "currencyName": {
+        "required": true,
+        "description": "Full name of the national currency used in the country, such as USD or Euro."
+      },
+      "currencySymbol": {
+        "required": true,
+        "description": "Symbol representing the countrys currency (e.g., $, \u00e2\u201a\u00ac, \u00e2\u201a\u00b9), used for UI display and financial formatting."
+      },
+      "countryCapital": {
+        "required": true,
+        "description": "Name of the capital city of the country, useful for metadata, location-based segmentation, or informational reference."
+      },
+      "countryLanguage": {
+        "required": true,
+        "enum": [
+          "Albanian",
+          "Amharic",
+          "Arabic",
+          "Armenian",
+          "Azerbaijani",
+          "Belarusian",
+          "Bengali",
+          "Bosnian",
+          "Bulgarian",
+          "Burmese",
+          "Catalan",
+          "Chinese",
+          "Croatian",
+          "Czech",
+          "Danish",
+          "Divehi",
+          "Dutch",
+          "Dzongkha",
+          "English",
+          "Estonian",
+          "Faroese",
+          "Finnish",
+          "French",
+          "Georgian",
+          "German",
+          "Greek (modern)",
+          "Hebrew (modern)",
+          "Hindi",
+          "Hungarian",
+          "Icelandic",
+          "Indonesian",
+          "Irish",
+          "Italian",
+          "Japanese",
+          "Kalaallisut",
+          "Kazakh",
+          "Khmer",
+          "Kinyarwanda",
+          "Korean",
+          "Kyrgyz",
+          "Lao",
+          "Latvian",
+          "Lithuanian",
+          "Macedonian",
+          "Malay",
+          "Malaysian",
+          "Maltese",
+          "Mongolian",
+          "Nepali",
+          "Norwegian",
+          "Pashto",
+          "Persian (Farsi)",
+          "Polish",
+          "Portuguese",
+          "Romanian",
+          "Russian",
+          "Samoan",
+          "Serbian",
+          "Sinhalese",
+          "Slovak",
+          "Slovene",
+          "Spanish",
+          "Swedish",
+          "Tajik",
+          "Thai",
+          "Turkish",
+          "Turkmen",
+          "Ukrainian",
+          "Uzbek",
+          "Vietnamese"
+        ],
+        "description": "Primary spoken language of the country in full language name form, used for localization defaults and culturally relevant content."
+      },
+      "countryCode": {
+        "required": true,
+        "description": "Two-letter ISO 3166-1 alpha-2 country code (e.g., US, IN, GB) used for compliance validation, geographic routing, and UI localization."
+      },
+      "countryCodeAlpha3": {
+        "required": false,
+        "description": "Three-letter ISO 3166-1 alpha-3 country code representing the country in extended format for standardized integrations."
+      },
+      "countryIsoCode": {
+        "required": true,
+        "description": "Numeric ISO 3166 country code or standardized ISO identifier used in integrations and global data mappings."
+      },
+      "countryLanguageCode": {
+        "required": true,
+        "enum": [
+          "sq",
+          "am",
+          "ar",
+          "hy",
+          "az",
+          "be",
+          "bn",
+          "bs",
+          "bg",
+          "my",
+          "ca",
+          "zh-CN",
+          "hr",
+          "cs",
+          "da",
+          "dv",
+          "nl",
+          "dz",
+          "en",
+          "et",
+          "fo",
+          "fi",
+          "fr",
+          "ka",
+          "de",
+          "el",
+          "he",
+          "hi",
+          "hu",
+          "is",
+          "id",
+          "ga",
+          "it",
+          "ja",
+          "kl",
+          "kk",
+          "km",
+          "rw",
+          "ko",
+          "ky",
+          "lo",
+          "lv",
+          "lt",
+          "mk",
+          "ms",
+          "ms-MY",
+          "mt",
+          "mn",
+          "ne",
+          "no",
+          "ps",
+          "fa",
+          "pl",
+          "pt",
+          "ro",
+          "ru",
+          "sm",
+          "sr",
+          "si",
+          "sk",
+          "sl",
+          "es",
+          "sv",
+          "tg",
+          "th",
+          "tr",
+          "tk",
+          "uk",
+          "uz",
+          "vi"
+        ],
+        "description": "Short language code (e.g., en, fr, de, zh-CN) representing the default language for users from this country. Mapped to i18n system language codes."
+      },
+      "phoneCode": {
+        "required": true,
+        "description": "International dialing prefix assigned to the country (e.g., +1, +44, +91), used for mobile number validation and formatting."
+      },
+      "flagEmoji": {
+        "required": true,
+        "description": "Unicode emoji representing the country national flag, used for user interface display and visual selection inputs."
+      },
+      "flagUrl": {
+        "required": true,
+        "description": "Direct URL pointing to the country flag image asset used in administrative dashboards or client UI applications."
+      },
+      "timezone": {
+        "required": true,
+        "description": "Primary timezone identifier for the country (e.g., Asia/Kolkata, Europe/Paris), used for date-time normalization and user activity interpretation."
+      },
+      "timezones": {
+        "required": false,
+        "description": "List of all supported timezone identifiers associated with the country, useful for countries spanning multiple zones."
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId uniquely identifying the country record in the countries collection."
+      },
+      "__v": {
+        "required": false,
+        "description": "Internal version number maintained by Mongoose for tracking schema revisions and document updates."
+      }
+    },
+    "required": [
+      "phoneCode",
+      "countryCapital",
+      "timezone",
+      "currencySymbol",
+      "status",
+      "countryIsoCode",
+      "currencyName",
+      "flagEmoji",
+      "countryCode",
+      "currencyCode",
+      "name",
+      "countryLanguage",
+      "flagUrl",
+      "countryLanguageCode"
+    ],
+    "indexes": [],
+    "relationships": []
+  },
+  "transactions": {
+    "collection": "transactions",
+    "fields": {
+      "playerId": {
+        "required": true,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the country record from the countries collection. Identifies the player registered country.",
+        "indexed": true,
+        "background": true,
+        "ref": "players"
+      },
+      "countryId": {
+        "required": true,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "Reference to the Country entity representing the player's registered geographical location.",
+        "ref": "countries"
+      },
+      "accountId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$"
+      },
+      "masterProviderId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "Reference to the master provider or gaming vendor associated with the transaction, primarily used for game transactions."
+      },
+      "gameId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the game record from the games collection. Used in bet, win, rollback and gameplay-related reporting.",
+        "ref": "games"
+      },
+      "paymentGatewayId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing to Payment Gateway record from the paymentGateways collection. responsible for processing deposit or withdrawal operations.",
+        "indexed": true,
+        "background": true,
+        "ref": "paymentGateways"
+      },
+      "auditId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the Audit record from the audits collection, enabling compliance validation and reconciliation tracking."
+      },
+      "couponId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the Coupon record from the coupons collection, identifying the promotional voucher applied to the transaction."
+      },
+      "playerPaymentMethodId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$"
+      },
+      "affiliateId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the Affiliate record from the affiliates collection, used for partner performance and revenue attribution.",
+        "indexed": true,
+        "background": true,
+        "ref": "affiliates"
+      },
+      "affiliateChannelId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the AffiliateChannel record from the affiliateChannels collection, identifying the referral source that brought the player.",
+        "indexed": true,
+        "background": true,
+        "ref": "affiliateChannels"
+      },
+      "paymentMethod": {
+        "required": false,
+        "description": "Indicates the method used for payment processing such as Visa, MasteCard, Crypto, etc.",
+        "indexed": true,
+        "background": true
+      },
+      "paymentVia": {
+        "required": false,
+        "description": "Additional payment source identifier describing the intermediate service or processing route."
+      },
+      "paymentCryptoAddress": {
+        "required": false,
+        "description": "Wallet address used for cryptocurrency deposit or withdrawal processing."
+      },
+      "cryptoNetwork": {
+        "required": false,
+        "description": "Blockchain network used for crypto payments (e.g., TRC20, ERC20, BEP20)."
+      },
+      "cardLastFourDigits": {
+        "required": false,
+        "description": "Masked representation of the card used for the transaction, storing only the last four digits for security."
+      },
+      "timestamp": {
+        "required": true,
+        "format": "date-time",
+        "description": "Date and time when the transaction event occurred, recorded in ISO format.",
+        "indexed": true,
+        "background": true
+      },
+      "transactionHash": {
+        "required": true,
+        "description": "Unique identifier representing the transaction within the platform.",
+        "indexed": true,
+        "unique": true,
+        "background": true
+      },
+      "source": {
+        "required": true,
+        "enum": [
+          "Payment",
+          "Game",
+          "Admin",
+          "Affiliate",
+          "Kiosk",
+          "Automate",
+          "Coupon",
+          "Self",
+          "Sports"
+        ],
+        "description": "Defines the origin of the transaction such as Payment, Game, Admin, Affiliate, Kiosk, or Coupon operations."
+      },
+      "type": {
+        "required": true,
+        "enum": [
+          "Deposit",
+          "Withdraw",
+          "Credit",
+          "Debit",
+          "Bet",
+          "Win",
+          "Rollback"
+        ],
+        "description": "Classifies the financial action involved: Deposit, Withdraw, Bet, Win, Credit, Debit, or Rollback.",
+        "indexed": true,
+        "background": true
+      },
+      "amountType": {
+        "required": true,
+        "enum": [
+          "Real",
+          "Bonus",
+          "Real_Bonus"
+        ],
+        "description": "Specifies whether the amount is Real, Bonus, or Mixed (Real_Bonus) balance."
+      },
+      "status": {
+        "required": true,
+        "enum": [
+          "Pending",
+          "Failed",
+          "Rejected",
+          "Cancelled",
+          "Success",
+          "Initiated",
+          "Refunded",
+          "Chargeback"
+        ],
+        "description": "Current processing state of the transaction such as Pending, Success, Failed, Cancelled, Refunded, or Chargeback.",
+        "indexed": true,
+        "background": true
+      },
+      "amount": {
+        "required": true,
+        "description": "Monetary amount involved in the transaction, representing value credited or debited."
+      },
+      "bonusName": {
+        "required": false,
+        "description": "Name or identifier of any bonus promotion associated with the transaction."
+      },
+      "closingRealBalance": {
+        "required": true,
+        "description": "Final available real-money balance after processing the transaction."
+      },
+      "closingBonusBalance": {
+        "required": true,
+        "description": "Final available bonus balance after processing the transaction."
+      },
+      "playerCurrency": {
+        "required": false,
+        "description": "Currency code representing the player's default wallet configuration (e.g., USD, EUR, INR)."
+      },
+      "closingEntriesBalance": {
+        "required": false
+      },
+      "closingWinningBalance": {
+        "required": false,
+        "description": "Balance representing accumulated winnings after the transaction."
+      },
+      "entriesAmount": {
+        "required": false
+      },
+      "entriesUsed": {
+        "required": false
+      },
+      "baseCurrencyAmount": {
+        "required": true,
+        "description": "Transaction value converted to system base currency which is EUR for analytics and reporting."
+      },
+      "depositCurrency": {
+        "required": false,
+        "description": "Currency used for deposit when different from player's default currency."
+      },
+      "depositCurrencyAmount": {
+        "required": false,
+        "description": "Amount received in the original deposit currency before conversion."
+      },
+      "json": {
+        "required": false,
+        "description": "Raw transaction metadata or provider response stored for audit or debugging."
+      },
+      "notes": {
+        "required": false,
+        "description": "Free-text remarks describing additional transaction details or administrative comments."
+      },
+      "splitAmount": {
+        "required": false,
+        "description": "Breakdown of amount distributed across multiple balances such as Real and Bonus funds."
+      },
+      "errorReason": {
+        "required": false,
+        "description": "Description of failure reason in case the transaction is rejected or unsuccessful."
+      },
+      "ipAddress": {
+        "required": false,
+        "description": "IP address recorded at the time of the transaction, for security and fraud prevention."
+      },
+      "device": {
+        "required": false,
+        "description": "Device type or user agent string representing the hardware used during the transaction."
+      },
+      "rollbackTransactionId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "Reference to the original transaction being reversed in case of rollback.",
+        "ref": "transactions"
+      },
+      "depositTransactionId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "Reference to the deposit transaction related to subsequent bonus or credit rewards.",
+        "indexed": true,
+        "background": true,
+        "ref": "transactions"
+      },
+      "winningBetAmount": {
+        "required": false,
+        "description": "Original stake or wager amount associated with the winning outcome."
+      },
+      "isFtd": {
+        "required": false,
+        "description": "Boolean flag indicating whether this transaction represents the player\u00e2\u20ac\u2122s first-ever deposit (First Time Deposit - FTD). Used for milestone tracking, promotional rewards, and affiliate attribution."
+      },
+      "isQftd": {
+        "required": false,
+        "description": "Boolean flag marking whether the player qualifies as a 'Qualified First Time Depositor' (QFTD). This identifies genuine depositors who continue to play or engage beyond the first deposit, as opposed to users who make a single deposit and churn. Commonly used for affiliate deal validation and revenue-sharing qualification."
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "Primary MongoDB ObjectId uniquely identifying the transaction document."
+      },
+      "__v": {
+        "required": false,
+        "description": "Document version key maintained internally by Mongoose."
+      }
+    },
+    "required": [
+      "closingRealBalance",
+      "amountType",
+      "timestamp",
+      "status",
+      "countryId",
+      "closingBonusBalance",
+      "source",
+      "type",
+      "playerId",
+      "amount",
+      "baseCurrencyAmount",
+      "transactionHash"
+    ],
+    "indexes": [
+      {
+        "fields": {
+          "playerId": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "paymentGatewayId": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "affiliateId": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "affiliateChannelId": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "paymentMethod": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "timestamp": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "transactionHash": 1
+        },
+        "options": {
+          "unique": true,
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "type": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "status": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "depositTransactionId": 1
+        },
+        "options": {
+          "background": true
+        }
+      }
+    ],
+    "relationships": [
+      {
+        "from_collection": "transactions",
+        "from_field": "playerId",
+        "to_collection": "players",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "transactions",
+        "from_field": "countryId",
+        "to_collection": "countries",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "transactions",
+        "from_field": "gameId",
+        "to_collection": "games",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "transactions",
+        "from_field": "paymentGatewayId",
+        "to_collection": "paymentGateways",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "transactions",
+        "from_field": "affiliateId",
+        "to_collection": "affiliates",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "transactions",
+        "from_field": "affiliateChannelId",
+        "to_collection": "affiliateChannels",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "transactions",
+        "from_field": "rollbackTransactionId",
+        "to_collection": "transactions",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "transactions",
+        "from_field": "depositTransactionId",
+        "to_collection": "transactions",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      }
+    ]
+  },
+  "paymentGateways": {
+    "collection": "paymentGateways",
+    "fields": {
+      "name": {
+        "required": true,
+        "description": "Human-readable name of the payment gateway, displayed in dashboards and transaction processing modules."
+      },
+      "processor": {
+        "required": true,
+        "enum": [
+          "CapitalManagement",
+          "GateCharge",
+          "GumBallPay",
+          "UZOpay",
+          "PayTechno",
+          "QuantumPay",
+          "Payofix",
+          "BlockBee",
+          "SmilePayz",
+          "Pragmatic",
+          "BlockSystems",
+          "EzzyGate",
+          "FreedomPay",
+          "Slikair",
+          "Paysecure",
+          "Superbit",
+          "Cash",
+          "Neosurf",
+          "Paysafe",
+          "Finvert",
+          "Paydot",
+          "Paympire",
+          "AstroPay",
+          "KwidPay",
+          "PayPound"
+        ],
+        "description": "Processor identifier used to route payments through the correct integration service. Possible values: CapitalManagement, GateCharge, GumBallPay, UZOpay, PayTechno, QuantumPay, Payofix, BlockBee, SmilePayz, Pragmatic, BlockSystems, EzzyGate, FreedomPay, Slikair, Paysecure, Superbit, Cash, Neosurf, Paysafe, Finvert, Paydot, Paympire, AstroPay, KwidPay, PayPound."
+      },
+      "depositorType": {
+        "required": true,
+        "enum": [
+          "FTD",
+          "Recurring Depositors"
+        ],
+        "description": "Defines the category of depositors supported by this gateway. Possible values: FTD (first-time depositors) and Recurring Depositors."
+      },
+      "status": {
+        "required": true,
+        "enum": [
+          "Pending",
+          "Active",
+          "Inactive"
+        ],
+        "description": "Operational status of the payment gateway. Determines whether it can be used by players. Values: Pending, Active, Inactive."
+      },
+      "methods": {
+        "required": true,
+        "description": "Array of payment methods offered by the gateway. Each method specifies currencies, countries, crypto support, and fees."
+      },
+      "rollingReservePercent": {
+        "required": true,
+        "description": "Percentage of settlement funds held temporarily as a reserve to cover potential chargebacks or disputes."
+      },
+      "rollingReserveReturnDays": {
+        "required": true,
+        "description": "Number of days after which rolling reserve funds are released back to the settlement account."
+      },
+      "createdAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp when the payment gateway record was created."
+      },
+      "updatedAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp representing the last update to the payment gateway record."
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId uniquely identifying the payment gateway record in the PaymentGateways collection."
+      },
+      "__v": {
+        "required": false,
+        "description": "Internal Mongoose version key for concurrency control and document versioning."
+      }
+    },
+    "required": [
+      "rollingReservePercent",
+      "rollingReserveReturnDays",
+      "depositorType",
+      "status",
+      "createdAt",
+      "processor",
+      "updatedAt",
+      "name",
+      "methods"
+    ],
+    "indexes": [],
+    "relationships": []
+  },
+  "playerCategorizations": {
+    "collection": "playerCategorizations",
+    "fields": {
+      "categorizationName": {
+        "required": true,
+        "description": "Human-readable name of the player category (e.g., 'VIP', 'High Roller', 'Newcomer'). Used to label and segment players based on predefined criteria."
+      },
+      "categorizationLevel": {
+        "required": true,
+        "description": "Internal level or tier identifier for the category, used to rank or prioritize categories hierarchically within the platform."
+      },
+      "categorizationColor": {
+        "required": true,
+        "description": "Hex code or color name representing the category visually in dashboards or UI displays for easy identification."
+      },
+      "totalPlayers": {
+        "required": false,
+        "description": "Count of players currently assigned to this category. Automatically updated as players qualify or exit the category."
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId uniquely identifying the player categorization record in the PlayerCategorization collection."
+      },
+      "updatedAt": {
+        "required": false,
+        "format": "date-time",
+        "description": "Timestamp of the last update to the player categorization record."
+      },
+      "createdAt": {
+        "required": false,
+        "format": "date-time",
+        "description": "Timestamp when the player categorization was created."
+      },
+      "__v": {
+        "required": false,
+        "description": "Internal Mongoose version key used for document versioning and concurrency control."
+      }
+    },
+    "required": [
+      "categorizationLevel",
+      "categorizationColor",
+      "categorizationName"
+    ],
+    "indexes": [],
+    "relationships": []
+  },
+  "providers": {
+    "collection": "providers",
+    "fields": {
+      "name": {
+        "required": true,
+        "description": "Official name of the provider, used for identification across the platform and visible in dashboards or game listings.",
+        "indexed": true,
+        "unique": true,
+        "background": true
+      },
+      "uniqueId": {
+        "required": true,
+        "description": "Unique alphanumeric identifier assigned to the provider for internal referencing and integration purposes.",
+        "indexed": true,
+        "unique": true,
+        "background": true
+      },
+      "royaltyPercentage": {
+        "required": false,
+        "description": "Default royalty or revenue share percentage allocated to the provider from transactions, bets, or game revenue."
+      },
+      "status": {
+        "required": true,
+        "enum": [
+          "Pending",
+          "Active",
+          "Inactive"
+        ],
+        "description": "Operational status of the provider within the platform. Values: Pending, Active, Inactive. Determines availability of games or services from this provider."
+      },
+      "createdAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp when the provider record was created."
+      },
+      "updatedAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp of the last update to the provider record."
+      },
+      "iconTheme": {
+        "required": false,
+        "enum": [
+          "Light",
+          "Dark",
+          "Custom"
+        ],
+        "description": "Preferred icon theme for the provider interface: Light, Dark, or Custom. Determines which icon variant is shown in the UI."
+      },
+      "iconLightUrl": {
+        "required": false,
+        "description": "URL pointing to the provider's light-themed icon, used when UI theme is set to light."
+      },
+      "iconDarkUrl": {
+        "required": false,
+        "description": "URL pointing to the provider's dark-themed icon, used when UI theme is set to dark."
+      },
+      "iconCustomUrl": {
+        "required": false,
+        "description": "URL pointing to the provider's custom-themed icon, used if a custom branding theme is applied."
+      },
+      "backgroundColor": {
+        "required": false,
+        "description": "Hex code or CSS color used for provider branding backgrounds in dashboards or game interfaces."
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId uniquely identifying the provider record in the Providers collection."
+      },
+      "__v": {
+        "required": false,
+        "description": "Internal Mongoose version key used for document versioning and concurrency control."
+      }
+    },
+    "required": [
+      "status",
+      "createdAt",
+      "updatedAt",
+      "uniqueId",
+      "name"
+    ],
+    "indexes": [
+      {
+        "fields": {
+          "name": 1
+        },
+        "options": {
+          "unique": true,
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "uniqueId": 1
+        },
+        "options": {
+          "unique": true,
+          "background": true
+        }
+      }
+    ],
+    "relationships": []
+  },
+  "tournaments": {
+    "collection": "tournaments",
+    "fields": {
+      "title": {
+        "required": true,
+        "description": "Official name of the tournament, used for display in dashboards, player interfaces, and reporting."
+      },
+      "startDate": {
+        "required": true,
+        "format": "date-time",
+        "description": "Date and time when the tournament begins. Used to control player participation and scheduling."
+      },
+      "endDate": {
+        "required": true,
+        "format": "date-time",
+        "description": "Date and time when the tournament ends. Determines when results are finalized and prizes are distributed."
+      },
+      "status": {
+        "required": true,
+        "enum": [
+          "Pending",
+          "Active",
+          "Inactive"
+        ],
+        "description": "Operational status of the tournament. Values: Pending, Active, Inactive. Determines visibility and eligibility for players."
+      },
+      "categoryId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the Category record in categories collection that classifies the tournament (e.g., game type or event type).",
+        "indexed": true,
+        "background": true,
+        "ref": "categories"
+      },
+      "tournamentType": {
+        "required": true,
+        "enum": [
+          "Deposit",
+          "Bet",
+          "Win"
+        ],
+        "description": "Type of tournament based on player activity: Deposit, Bet, or Win. Defines how points or scores are calculated."
+      },
+      "description": {
+        "required": true,
+        "description": "Detailed description of the tournament rules, rewards, and conditions for player participation."
+      },
+      "wagerToPointRatio": {
+        "required": true,
+        "description": "Conversion ratio between wagers (bets/deposits) and tournament points. Used to calculate leaderboard standings."
+      },
+      "prizes": {
+        "required": true,
+        "description": "Array of prize objects specifying rank-based rewards. Each prize includes rank, amount, and its unique MongoDB _id."
+      },
+      "imageUrl": {
+        "required": true,
+        "description": "URL pointing to the tournament banner or image, used in UI dashboards and promotional materials."
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId uniquely identifying the tournament record in the Tournaments collection."
+      },
+      "updatedAt": {
+        "required": false,
+        "format": "date-time",
+        "description": "Timestamp of the last update to the tournament record."
+      },
+      "createdAt": {
+        "required": false,
+        "format": "date-time",
+        "description": "Timestamp when the tournament record was created."
+      },
+      "__v": {
+        "required": false,
+        "description": "Internal Mongoose version key used for document versioning and concurrency control."
+      }
+    },
+    "required": [
+      "title",
+      "wagerToPointRatio",
+      "endDate",
+      "imageUrl",
+      "status",
+      "description",
+      "tournamentType",
+      "prizes",
+      "startDate"
+    ],
+    "indexes": [
+      {
+        "fields": {
+          "categoryId": 1
+        },
+        "options": {
+          "background": true
+        }
+      }
+    ],
+    "relationships": [
+      {
+        "from_collection": "tournaments",
+        "from_field": "categoryId",
+        "to_collection": "categories",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      }
+    ]
+  },
+  "games": {
+    "collection": "games",
+    "fields": {
+      "masterProviderId": {
+        "required": true,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the master provider that owns or manages this game globally across multiple providers."
+      },
+      "providerId": {
+        "required": true,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the Provider record for this specific game instance. Defines which provider supplies the game content.",
+        "indexed": true,
+        "background": true,
+        "ref": "providers"
+      },
+      "categoryIds": {
+        "required": true,
+        "description": "Array of MongoDB ObjectIds referencing Category records. Used to classify the game into categories such as Slots, Live Casino, Table Games, Sports, etc.",
+        "indexed": true,
+        "background": true,
+        "ref": "categories"
+      },
+      "name": {
+        "required": true,
+        "description": "Human-readable title of the game as displayed to players on UI and dashboards.",
+        "indexed": true,
+        "background": true
+      },
+      "notes": {
+        "required": false,
+        "description": "Internal remarks or operational notes about the game for administrative usage, invisible to players."
+      },
+      "status": {
+        "required": true,
+        "enum": [
+          "Pending",
+          "Active",
+          "Inactive"
+        ],
+        "description": "Current operational availability of the game. Values: Pending, Active, Inactive. Determines player access and visibility."
+      },
+      "launchUrl": {
+        "required": true,
+        "description": "URL used to launch the game client. Accessed by operators or players when gameplay is initiated."
+      },
+      "imageUrl": {
+        "required": true,
+        "description": "URL for the game thumbnail or banner used in frontend display such as lobbies and recommendations."
+      },
+      "imageAvailable": {
+        "required": true,
+        "description": "Boolean value indicating whether an image is available for the game. Used for fallback display handling."
+      },
+      "createdAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp representing the creation date of the game record."
+      },
+      "updatedAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp representing the last time the game record was updated."
+      },
+      "sortDate": {
+        "required": true,
+        "format": "date-time",
+        "description": "Date value used for sorting and prioritizing games based on relevance or recent updates."
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId uniquely identifying the game in the Games collection."
+      },
+      "__v": {
+        "required": false,
+        "description": "Mongoose internal version key used to maintain document revision history and locking."
+      }
+    },
+    "required": [
+      "sortDate",
+      "masterProviderId",
+      "providerId",
+      "imageUrl",
+      "status",
+      "createdAt",
+      "updatedAt",
+      "categoryIds",
+      "name",
+      "launchUrl",
+      "imageAvailable"
+    ],
+    "indexes": [
+      {
+        "fields": {
+          "providerId": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "categoryIds": 1
+        },
+        "options": {
+          "background": true
+        }
+      },
+      {
+        "fields": {
+          "name": 1
+        },
+        "options": {
+          "background": true
+        }
+      }
+    ],
+    "relationships": [
+      {
+        "from_collection": "games",
+        "from_field": "providerId",
+        "to_collection": "providers",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "games",
+        "from_field": "categoryIds",
+        "to_collection": "categories",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      }
+    ]
+  },
+  "categories": {
+    "collection": "categories",
+    "fields": {
+      "name": {
+        "required": true,
+        "description": "Display name of the category (e.g., Slots, Roulette, Top Games). Used for UI grouping, filtering, and reporting.",
+        "indexed": true,
+        "unique": true,
+        "background": true
+      },
+      "index": {
+        "required": true,
+        "description": "Sorting order used to arrange categories visually in dashboards and gaming interfaces. Lower values appear first."
+      },
+      "status": {
+        "required": true,
+        "enum": [
+          "Pending",
+          "Active",
+          "Inactive"
+        ],
+        "description": "Operational state of the category. Values: Pending, Active, Inactive. Determines whether games under this category are displayed or hidden."
+      },
+      "providerIds": {
+        "required": false,
+        "description": "List of MongoDB ObjectIds referencing Provider records associated with this category. Defines which providers contribute games to the category.",
+        "ref": "providers"
+      },
+      "createdAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp marking when the category was initially created in the system."
+      },
+      "updatedAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp of the most recent modification to the category record."
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId uniquely identifying the category within the Categories collection."
+      },
+      "__v": {
+        "required": false,
+        "description": "Internal Mongoose version key used for document versioning and concurrency control."
+      }
+    },
+    "required": [
+      "index",
+      "status",
+      "createdAt",
+      "updatedAt",
+      "name"
+    ],
+    "indexes": [
+      {
+        "fields": {
+          "name": 1
+        },
+        "options": {
+          "unique": true,
+          "background": true
+        }
+      }
+    ],
+    "relationships": [
+      {
+        "from_collection": "categories",
+        "from_field": "providerIds",
+        "to_collection": "providers",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      }
+    ]
+  },
+  "communications": {
+    "collection": "communications",
+    "fields": {
+      "campaignCommunicationId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing another Communication record in the same collection when this message is part of a campaign chain.",
+        "ref": "communications"
+      },
+      "playerId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the Player to whom the communication is addressed.",
+        "ref": "players"
+      },
+      "masterAccountId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing the master/admin account that triggered or owns the communication."
+      },
+      "type": {
+        "required": true,
+        "enum": [
+          "Mail",
+          "SMS"
+        ],
+        "description": "Medium used for sending the communication. Allowed values: Mail or SMS."
+      },
+      "status": {
+        "required": true,
+        "enum": [
+          "Initiated",
+          "Success",
+          "Failed"
+        ],
+        "description": "State of the communication process. Possible values: Initiated, Success, or Failed."
+      },
+      "isCampaign": {
+        "required": true,
+        "description": "Boolean indicating whether the communication is part of a promotional campaign or an individual message."
+      },
+      "recipients": {
+        "required": false,
+        "description": "Array of recipient identifiers or contact values that the communication is sent to (e.g., email addresses or phone numbers)."
+      },
+      "email": {
+        "required": false,
+        "description": "Email address to which the message is sent, if communication type is Mail."
+      },
+      "phone": {
+        "required": false,
+        "description": "Phone number to which the message is sent, if communication type is SMS."
+      },
+      "subject": {
+        "required": true,
+        "description": "Title or subject line of the email or SMS message, used primarily for email communications."
+      },
+      "content": {
+        "required": false,
+        "description": "Actual body text of the message delivered to the recipient(s)."
+      },
+      "sentAt": {
+        "required": true,
+        "format": "date-time",
+        "description": "Timestamp when the communication was dispatched to the messaging provider."
+      },
+      "response": {
+        "required": false,
+        "description": "Response returned from the email/SMS provider after sending, typically used for delivery validation."
+      },
+      "error": {
+        "required": false,
+        "description": "Error message logged if sending fails, used for debugging and reporting."
+      },
+      "selectedEmailId": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId referencing EmailCredential to determine which email configuration was used for sending.",
+        "ref": "emailCredentials"
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId uniquely identifying the communication record."
+      },
+      "__v": {
+        "required": false,
+        "description": "Mongoose internal version key for concurrency control and update tracking."
+      }
+    },
+    "required": [
+      "sentAt",
+      "status",
+      "subject",
+      "type",
+      "isCampaign"
+    ],
+    "indexes": [],
+    "relationships": [
+      {
+        "from_collection": "communications",
+        "from_field": "campaignCommunicationId",
+        "to_collection": "communications",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "communications",
+        "from_field": "playerId",
+        "to_collection": "players",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      },
+      {
+        "from_collection": "communications",
+        "from_field": "selectedEmailId",
+        "to_collection": "emailCredentials",
+        "to_field": "_id",
+        "relationship_type": "x-ref"
+      }
+    ]
+  },
+  "emailCredentials": {
+    "collection": "emailCredentials",
+    "fields": {
+      "mailHost": {
+        "required": true,
+        "description": "Hostname or SMTP server address used for sending outbound emails (e.g., smtp.gmail.com, smtp.sendgrid.net)."
+      },
+      "mailPort": {
+        "required": true,
+        "description": "Port number used for SMTP communication. Common values include 465 for SSL and 587 for TLS."
+      },
+      "mailStatus": {
+        "required": true,
+        "enum": [
+          "Pending",
+          "Active",
+          "Inactive"
+        ],
+        "description": "Current operational state of the email configuration. Values: Pending, Active, Inactive."
+      },
+      "mailTls": {
+        "required": false,
+        "description": "Boolean that determines whether TLS encryption is enabled for secure email transmission. Defaults to false."
+      },
+      "mailSenderName": {
+        "required": true,
+        "description": "Display name shown as the sender when recipients receive the email (e.g., Casino Support)."
+      },
+      "mailSenderEmail": {
+        "required": true,
+        "description": "Email address used as the sending origin for outbound messages."
+      },
+      "mailSenderPassword": {
+        "required": true,
+        "description": "Password or API key used for authentication with the SMTP mail server."
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId uniquely identifying the EmailCredential record."
+      },
+      "updatedAt": {
+        "required": false,
+        "format": "date-time",
+        "description": "Timestamp indicating when the email credential record was last modified."
+      },
+      "createdAt": {
+        "required": false,
+        "format": "date-time",
+        "description": "Timestamp marking when the email credential record was initially created."
+      },
+      "__v": {
+        "required": false,
+        "description": "Mongoose internal version key used for document versioning and conflict resolution."
+      }
+    },
+    "required": [
+      "mailSenderEmail",
+      "mailSenderPassword",
+      "mailHost",
+      "mailPort",
+      "mailSenderName",
+      "mailStatus"
+    ],
+    "indexes": [],
+    "relationships": []
+  },
+  "emailTemplates": {
+    "collection": "emailTemplates",
+    "fields": {
+      "name": {
+        "required": true,
+        "description": "Display name used to identify the email template within admin dashboards and configuration screens."
+      },
+      "htmlContent": {
+        "required": true,
+        "description": "HTML markup that defines the body of the email template, including placeholders for dynamic values."
+      },
+      "type": {
+        "required": true,
+        "enum": [
+          "Automate",
+          "Custom"
+        ],
+        "description": "Specifies whether the template is automatic system-generated (Automate) or custom-created by an admin (Custom). Default is Custom."
+      },
+      "automateType": {
+        "required": false,
+        "enum": [
+          "Player_Register",
+          "Forgot_Password",
+          "Deposit_Success",
+          "Withdraw_Request"
+        ],
+        "description": "Indicates the automated email event type when type is Automate. Examples: Player_Register, Forgot_Password, Deposit_Success, Withdraw_Request.",
+        "indexed": true,
+        "unique": true,
+        "sparse": true,
+        "background": true
+      },
+      "_id": {
+        "required": false,
+        "pattern": "^[0-9a-fA-F]{24}$",
+        "description": "MongoDB ObjectId uniquely identifying the email template record."
+      },
+      "updatedAt": {
+        "required": false,
+        "format": "date-time",
+        "description": "Timestamp representing the last modification to the email template."
+      },
+      "createdAt": {
+        "required": false,
+        "format": "date-time",
+        "description": "Timestamp marking when the email template record was initially created."
+      },
+      "__v": {
+        "required": false,
+        "description": "Mongoose internal version number used for concurrency control."
+      }
+    },
+    "required": [
+      "name",
+      "htmlContent",
+      "type"
+    ],
+    "indexes": [
+      {
+        "fields": {
+          "automateType": 1
+        },
+        "options": {
+          "unique": true,
+          "sparse": true,
+          "background": true
+        }
+      }
+    ],
+    "relationships": []
+  }
+}

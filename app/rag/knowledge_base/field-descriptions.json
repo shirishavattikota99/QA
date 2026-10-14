@@ -1,0 +1,1022 @@
+{
+  "players": [
+    {
+      "field": "countryId",
+      "description": "MongoDB ObjectId referencing the country record from the countries collection. Identifies the player registered country."
+    },
+    {
+      "field": "username",
+      "description": "Unique human-readable identifier given to the player. Used for login and player identification across the system."
+    },
+    {
+      "field": "currency",
+      "description": "Three-letter ISO currency code (e.g., USD, EUR, INR) defining the players wallet currency used for deposits, withdrawals, and gameplay."
+    },
+    {
+      "field": "playToken",
+      "description": "Unique cryptographic token generated for the player to authenticate game sessions with integrated game providers."
+    },
+    {
+      "field": "totalBalance",
+      "description": "Total monetary balance available in the players account, calculated as the sum of real, bonus, and any winnings-related balances."
+    },
+    {
+      "field": "realBalance",
+      "description": "Amount of real, withdrawable money available in the players wallet."
+    },
+    {
+      "field": "bonusBalance",
+      "description": "Amount of bonus funds received through promotions or rewards, subject to wagering rules."
+    },
+    {
+      "field": "totalDepositAmount",
+      "description": "Cumulative amount of all successful deposits made by the player across their account lifetime."
+    },
+    {
+      "field": "totalWithdrawAmount",
+      "description": "Cumulative amount of all completed withdrawals performed by the player."
+    },
+    {
+      "field": "totalWithdrawPendingAmount",
+      "description": "Total amount currently under withdrawal processing or pending approval."
+    },
+    {
+      "field": "totalBonusCreditAmount",
+      "description": "Total value of bonus money credited to the player."
+    },
+    {
+      "field": "totalRealBetAmount",
+      "description": "Sum of all wager amounts placed using real funds."
+    },
+    {
+      "field": "totalRealWinAmount",
+      "description": "Total winnings earned from bets placed with real balance."
+    },
+    {
+      "field": "totalBonusBetAmount",
+      "description": "Sum of all wager amounts placed using bonus funds."
+    },
+    {
+      "field": "totalBonusWinAmount",
+      "description": "Total winnings earned from bets placed with bonus balance."
+    },
+    {
+      "field": "totalDepositCount",
+      "description": "Number of successful deposit transactions performed by the player."
+    },
+    {
+      "field": "totalWithdrawCount",
+      "description": "Number of successful withdrawal transactions completed by the player."
+    },
+    {
+      "field": "totalRealBetCount",
+      "description": "Count of individual bets placed using real money."
+    },
+    {
+      "field": "totalRealWinCount",
+      "description": "Count of winning outcomes obtained from real-money bets."
+    },
+    {
+      "field": "totalBonusBetCount",
+      "description": "Number of bets placed using bonus funds."
+    },
+    {
+      "field": "totalBonusWinCount",
+      "description": "Number of winning outcomes obtained from bonus bets."
+    },
+    {
+      "field": "lastDepositAt",
+      "description": "Timestamp indicating when the player last made a successful deposit."
+    },
+    {
+      "field": "lastWithdrawAt",
+      "description": "Timestamp indicating when the player last completed a withdrawal."
+    },
+    {
+      "field": "email",
+      "description": "Unique email address used for authentication, communication, and account recovery."
+    },
+    {
+      "field": "emailVerified",
+      "description": "Boolean value indicating whether the player has verified their email through the verification process."
+    },
+    {
+      "field": "isConnectWallet",
+      "description": "Indicates if the player has linked an external cryptocurrency wallet to their account."
+    },
+    {
+      "field": "createdAt",
+      "description": "Timestamp representing when the player profile was initially created."
+    },
+    {
+      "field": "updatedAt",
+      "description": "Timestamp representing the most recent update to the players document."
+    },
+    {
+      "field": "status",
+      "description": "Overall account status: Pending, Active, Inactive, or Fraud."
+    },
+    {
+      "field": "bonusStatus",
+      "description": "Indicates whether the player is eligible to receive bonus rewards. Can be enabled or disabled."
+    },
+    {
+      "field": "mailStatus",
+      "description": "Controls whether marketing or system emails are enabled for the player."
+    },
+    {
+      "field": "smsStatus",
+      "description": "Controls whether SMS notifications are enabled for the player."
+    },
+    {
+      "field": "i18n",
+      "description": "Language preference code for user interface localization, using standard international language codes."
+    },
+    {
+      "field": "password",
+      "description": "Securely hashed password string for login authentication."
+    },
+    {
+      "field": "salt",
+      "description": "Random cryptographic salt used to hash the players password."
+    },
+    {
+      "field": "mobile",
+      "description": "Players phone number used for communication, verification, and security notifications."
+    },
+    {
+      "field": "firstName",
+      "description": "Players personal first name."
+    },
+    {
+      "field": "lastName",
+      "description": "Players personal surname or family name."
+    },
+    {
+      "field": "gender",
+      "description": "Gender identity of the player, used for demographic segmentation."
+    },
+    {
+      "field": "dob",
+      "description": "Players date of birth, used for age verification and responsible gaming checks."
+    },
+    {
+      "field": "address",
+      "description": "Primary residential address provided by the player."
+    },
+    {
+      "field": "address2",
+      "description": "Secondary address line for additional address details."
+    },
+    {
+      "field": "state",
+      "description": "State or province of the players registered address."
+    },
+    {
+      "field": "city",
+      "description": "City of the players registered address."
+    },
+    {
+      "field": "pinCode",
+      "description": "Postal or ZIP code of the players address."
+    },
+    {
+      "field": "resetPasswordToken",
+      "description": "Token generated for password reset workflow, used once per reset attempt."
+    },
+    {
+      "field": "lastLoginDetails",
+      "description": "Metadata about the players last login session, such as IP address,loginAt, userAgent, or timestamp."
+    },
+    {
+      "field": "isDepositLimitEnabled",
+      "description": "Indicates whether responsible gaming deposit limit rules are active for this player."
+    },
+    {
+      "field": "depositLimit",
+      "description": "Monetary limit imposed on how much the player can deposit within a specific timeframe."
+    },
+    {
+      "field": "depositLimitFrequency",
+      "description": "Interval for deposit limit enforcement (Daily, Weekly, Monthly, etc.)."
+    },
+    {
+      "field": "isBonusLimitEnabled",
+      "description": "Indicates whether bonus usage limits are enforced for this player."
+    },
+    {
+      "field": "bonusLimit",
+      "description": "Maximum amount of bonus funds the player is allowed to receive or use within a specified timeframe."
+    },
+    {
+      "field": "bonusLimitFrequency",
+      "description": "Frequency interval for evaluating the players bonus limit."
+    },
+    {
+      "field": "playBalanceMode",
+      "description": "Defines which balance types the player can use during gameplay: Real, Bonus, or All."
+    },
+    {
+      "field": "loyaltyPoints",
+      "description": "Total loyalty reward points accumulated by the player from gameplay or promotions."
+    },
+    {
+      "field": "loyaltyLevelNumber",
+      "description": "Numeric identifier of the players loyalty tier level."
+    },
+    {
+      "field": "loyaltyLevelName",
+      "description": "Readable name of the players loyalty tier (e.g., Silver, Gold, Platinum)."
+    },
+    {
+      "field": "affiliateId",
+      "description": "ObjectId referencing the affiliate who referred the player, from the affiliates collection."
+    },
+    {
+      "field": "affiliateChannelId",
+      "description": "ObjectId referencing the specific affiliate marketing channel that generated the player signup."
+    },
+    {
+      "field": "affiliateQueryParams",
+      "description": "Raw tracking parameters captured during registration for affiliate attribution."
+    },
+    {
+      "field": "playerCategorizationId",
+      "description": "Reference to the player categorization or segmentation profile used for behavior analysis."
+    },
+    {
+      "field": "licenceLink",
+      "description": "URL pointing to the uploaded identity document used for KYC verification."
+    },
+    {
+      "field": "captureLink",
+      "description": "URL pointing to the players selfie or live image captured for KYC identity validation."
+    },
+    {
+      "field": "billLink",
+      "description": "URL pointing to the uploaded utility bill or address proof document for KYC verification."
+    },
+    {
+      "field": "licenceStatus",
+      "description": "Current verification status of the uploaded identity document (Pending, Approved, Rejected)."
+    },
+    {
+      "field": "captureStatus",
+      "description": "Verification status of the uploaded selfie or face capture document."
+    },
+    {
+      "field": "billStatus",
+      "description": "Verification status of the uploaded address proof document."
+    },
+    {
+      "field": "kycRemarks",
+      "description": "Comments or notes added by compliance/KYC officers during document review."
+    },
+    {
+      "field": "kycStatus",
+      "description": "Overall KYC compliance status of the player (Pending, Approved, Rejected, Expired, NoKyc)."
+    },
+    {
+      "field": "kycVerifiedAt",
+      "description": "Timestamp marking when the players KYC verification was approved."
+    },
+    {
+      "field": "_id",
+      "description": "Primary MongoDB ObjectId uniquely identifying the player record."
+    },
+    {
+      "field": "__v",
+      "description": "Internal document version number maintained by Mongoose for schema migrations."
+    }
+  ],
+  "countries": [
+    {
+      "countries": [
+        {
+          "field": "name",
+          "description": "Official country name used for player registration, regional configuration, and localization settings."
+        },
+        {
+          "field": "status",
+          "description": "Operational status of the country within the platform. Determines whether the country is allowed for registration and gameplay. Values: Pending, Active, Inactive."
+        },
+        {
+          "field": "currencyCode",
+          "description": "Three-letter ISO 4217 currency code (e.g., USD, EUR, INR) representing the countrys primary monetary unit used for player transactions."
+        },
+        {
+          "field": "currencyName",
+          "description": "Full name of the national currency used in the country, such as USD or Euro."
+        },
+        {
+          "field": "currencySymbol",
+          "description": "Symbol representing the countrys currency (e.g., $, €, ₹), used for UI display and financial formatting."
+        },
+        {
+          "field": "countryCapital",
+          "description": "Name of the capital city of the country, useful for metadata, location-based segmentation, or informational reference."
+        },
+        {
+          "field": "countryLanguage",
+          "description": "Primary spoken language of the country in full language name form, used for localization defaults and culturally relevant content."
+        },
+        {
+          "field": "countryCode",
+          "description": "Two-letter ISO 3166-1 alpha-2 country code (e.g., US, IN, GB) used for compliance validation, geographic routing, and UI localization."
+        },
+        {
+          "field": "countryCodeAlpha3",
+          "description": "Three-letter ISO 3166-1 alpha-3 country code representing the country in extended format for standardized integrations."
+        },
+        {
+          "field": "countryIsoCode",
+          "description": "Numeric ISO 3166 country code or standardized ISO identifier used in integrations and global data mappings."
+        },
+        {
+          "field": "countryLanguageCode",
+          "description": "Short language code (e.g., en, fr, de, zh-CN) representing the default language for users from this country. Mapped to i18n system language codes."
+        },
+        {
+          "field": "phoneCode",
+          "description": "International dialing prefix assigned to the country (e.g., +1, +44, +91), used for mobile number validation and formatting."
+        },
+        {
+          "field": "flagEmoji",
+          "description": "Unicode emoji representing the country national flag, used for user interface display and visual selection inputs."
+        },
+        {
+          "field": "flagUrl",
+          "description": "Direct URL pointing to the country flag image asset used in administrative dashboards or client UI applications."
+        },
+        {
+          "field": "timezone",
+          "description": "Primary timezone identifier for the country (e.g., Asia/Kolkata, Europe/Paris), used for date-time normalization and user activity interpretation."
+        },
+        {
+          "field": "timezones",
+          "description": "List of all supported timezone identifiers associated with the country, useful for countries spanning multiple zones."
+        },
+        {
+          "field": "_id",
+          "description": "MongoDB ObjectId uniquely identifying the country record in the countries collection."
+        },
+        {
+          "field": "__v",
+          "description": "Internal version number maintained by Mongoose for tracking schema revisions and document updates."
+        }
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "field": "playerId",
+      "description": "MongoDB ObjectId referencing the country record from the countries collection. Identifies the player registered country."
+    },
+    {
+      "field": "countryId",
+      "description": "Reference to the Country entity representing the player's registered geographical location."
+    },
+    {
+      "field": "masterProviderId",
+      "description": "Reference to the master provider or gaming vendor associated with the transaction, primarily used for game transactions."
+    },
+    {
+      "field": "gameId",
+      "description": "MongoDB ObjectId referencing the game record from the games collection. Used in bet, win, rollback and gameplay-related reporting."
+    },
+    {
+      "field": "paymentGatewayId",
+      "description": "MongoDB ObjectId referencing to Payment Gateway record from the paymentGateways collection. responsible for processing deposit or withdrawal operations."
+    },
+    {
+      "field": "auditId",
+      "description": "MongoDB ObjectId referencing the Audit record from the audits collection, enabling compliance validation and reconciliation tracking."
+    },
+    {
+      "field": "couponId",
+      "description": "MongoDB ObjectId referencing the Coupon record from the coupons collection, identifying the promotional voucher applied to the transaction."
+    },
+    {
+      "field": "affiliateId",
+      "description": "MongoDB ObjectId referencing the Affiliate record from the affiliates collection, used for partner performance and revenue attribution."
+    },
+    {
+      "field": "affiliateChannelId",
+      "description": "MongoDB ObjectId referencing the AffiliateChannel record from the affiliateChannels collection, identifying the referral source that brought the player."
+    },
+    {
+      "field": "paymentMethod",
+      "description": "Indicates the method used for payment processing such as Visa, MasteCard, Crypto, etc."
+    },
+    {
+      "field": "paymentVia",
+      "description": "Additional payment source identifier describing the intermediate service or processing route."
+    },
+    {
+      "field": "paymentCryptoAddress",
+      "description": "Wallet address used for cryptocurrency deposit or withdrawal processing."
+    },
+    {
+      "field": "cryptoNetwork",
+      "description": "Blockchain network used for crypto payments (e.g., TRC20, ERC20, BEP20)."
+    },
+    {
+      "field": "cardLastFourDigits",
+      "description": "Masked representation of the card used for the transaction, storing only the last four digits for security."
+    },
+    {
+      "field": "timestamp",
+      "description": "Date and time when the transaction event occurred, recorded in ISO format."
+    },
+    {
+      "field": "transactionHash",
+      "description": "Unique identifier representing the transaction within the platform."
+    },
+    {
+      "field": "source",
+      "description": "Defines the origin of the transaction such as Payment, Game, Admin, Affiliate, Kiosk, or Coupon operations."
+    },
+    {
+      "field": "type",
+      "description": "Classifies the financial action involved: Deposit, Withdraw, Bet, Win, Credit, Debit, or Rollback."
+    },
+    {
+      "field": "amountType",
+      "description": "Specifies whether the amount is Real, Bonus, or Mixed (Real_Bonus) balance."
+    },
+    {
+      "field": "status",
+      "description": "Current processing state of the transaction such as Pending, Success, Failed, Cancelled, Refunded, or Chargeback."
+    },
+    {
+      "field": "amount",
+      "description": "Monetary amount involved in the transaction, representing value credited or debited."
+    },
+    {
+      "field": "bonusName",
+      "description": "Name or identifier of any bonus promotion associated with the transaction."
+    },
+    {
+      "field": "closingRealBalance",
+      "description": "Final available real-money balance after processing the transaction."
+    },
+    {
+      "field": "closingBonusBalance",
+      "description": "Final available bonus balance after processing the transaction."
+    },
+    {
+      "field": "playerCurrency",
+      "description": "Currency code representing the player's default wallet configuration (e.g., USD, EUR, INR)."
+    },
+    {
+      "field": "closingWinningBalance",
+      "description": "Balance representing accumulated winnings after the transaction."
+    },
+    {
+      "field": "baseCurrencyAmount",
+      "description": "Transaction value converted to system base currency which is EUR for analytics and reporting."
+    },
+    {
+      "field": "depositCurrency",
+      "description": "Currency used for deposit when different from player's default currency."
+    },
+    {
+      "field": "depositCurrencyAmount",
+      "description": "Amount received in the original deposit currency before conversion."
+    },
+    {
+      "field": "json",
+      "description": "Raw transaction metadata or provider response stored for audit or debugging."
+    },
+    {
+      "field": "notes",
+      "description": "Free-text remarks describing additional transaction details or administrative comments."
+    },
+    {
+      "field": "splitAmount",
+      "description": "Breakdown of amount distributed across multiple balances such as Real and Bonus funds."
+    },
+    {
+      "field": "errorReason",
+      "description": "Description of failure reason in case the transaction is rejected or unsuccessful."
+    },
+    {
+      "field": "ipAddress",
+      "description": "IP address recorded at the time of the transaction, for security and fraud prevention."
+    },
+    {
+      "field": "device",
+      "description": "Device type or user agent string representing the hardware used during the transaction."
+    },
+    {
+      "field": "rollbackTransactionId",
+      "description": "Reference to the original transaction being reversed in case of rollback."
+    },
+    {
+      "field": "depositTransactionId",
+      "description": "Reference to the deposit transaction related to subsequent bonus or credit rewards."
+    },
+    {
+      "field": "winningBetAmount",
+      "description": "Original stake or wager amount associated with the winning outcome."
+    },
+    {
+      "field": "isFtd",
+      "description": "Boolean flag indicating whether this transaction represents the player’s first-ever deposit (First Time Deposit - FTD). Used for milestone tracking, promotional rewards, and affiliate attribution."
+    },
+    {
+      "field": "isQftd",
+      "description": "Boolean flag marking whether the player qualifies as a 'Qualified First Time Depositor' (QFTD). This identifies genuine depositors who continue to play or engage beyond the first deposit, as opposed to users who make a single deposit and churn. Commonly used for affiliate deal validation and revenue-sharing qualification."
+    },
+    {
+      "field": "_id",
+      "description": "Primary MongoDB ObjectId uniquely identifying the transaction document."
+    },
+    {
+      "field": "__v",
+      "description": "Document version key maintained internally by Mongoose."
+    }
+  ],
+  "paymentGateways": [
+    {
+      "field": "name",
+      "description": "Human-readable name of the payment gateway, displayed in dashboards and transaction processing modules."
+    },
+    {
+      "field": "processor",
+      "description": "Processor identifier used to route payments through the correct integration service. Possible values: CapitalManagement, GateCharge, GumBallPay, UZOpay, PayTechno, QuantumPay, Payofix, BlockBee, SmilePayz, Pragmatic, BlockSystems, EzzyGate, FreedomPay, Slikair, Paysecure, Superbit, Cash, Neosurf, Paysafe, Finvert, Paydot, Paympire, AstroPay, KwidPay, PayPound."
+    },
+    {
+      "field": "depositorType",
+      "description": "Defines the category of depositors supported by this gateway. Possible values: FTD (first-time depositors) and Recurring Depositors."
+    },
+    {
+      "field": "status",
+      "description": "Operational status of the payment gateway. Determines whether it can be used by players. Values: Pending, Active, Inactive."
+    },
+    {
+      "field": "methods",
+      "description": "Array of payment methods offered by the gateway. Each method specifies currencies, countries, crypto support, and fees."
+    },
+    {
+      "field": "methods.method",
+      "description": "Name of the individual payment method (e.g., Visa, MasterCard, BTC, USDT)."
+    },
+    {
+      "field": "methods.isAllCurrencies",
+      "description": "Boolean indicating whether the method supports all platform currencies."
+    },
+    {
+      "field": "methods.supportedCurrencies",
+      "description": "List of allowed currency codes for this method if not supporting all currencies."
+    },
+    {
+      "field": "methods.isCryptoCurrency",
+      "description": "Boolean indicating if the method supports cryptocurrency payments."
+    },
+    {
+      "field": "methods.cryptoNetworks",
+      "description": "List of blockchain networks supported for crypto payments (e.g., ERC20, TRC20, BEP20)."
+    },
+    {
+      "field": "methods.isWorldwide",
+      "description": "Boolean indicating whether the method is available in all countries."
+    },
+    {
+      "field": "methods.allowedCountries",
+      "description": "Array of MongoDB ObjectIds referencing Country collection. Specifies which countries are allowed to use this method."
+    },
+    {
+      "field": "methods.blockedCountries",
+      "description": "Array of MongoDB ObjectIds referencing Country collection. Specifies countries blocked from using this method."
+    },
+    {
+      "field": "methods.successFeePercent",
+      "description": "Percentage fee applied to successful transactions, used for settlement and accounting."
+    },
+    {
+      "field": "methods.transactionFeeAmount",
+      "description": "Fixed transaction fee applied per transaction regardless of transaction amount."
+    },
+    {
+      "field": "methods.refundFeeAmount",
+      "description": "Fee applied when a refund is processed for this method."
+    },
+    {
+      "field": "methods.chargebackFeeAmount",
+      "description": "Fee applied when a chargeback occurs for this method."
+    },
+    {
+      "field": "rollingReservePercent",
+      "description": "Percentage of settlement funds held temporarily as a reserve to cover potential chargebacks or disputes."
+    },
+    {
+      "field": "rollingReserveReturnDays",
+      "description": "Number of days after which rolling reserve funds are released back to the settlement account."
+    },
+    {
+      "field": "createdAt",
+      "description": "Timestamp when the payment gateway record was created."
+    },
+    {
+      "field": "updatedAt",
+      "description": "Timestamp representing the last update to the payment gateway record."
+    },
+    {
+      "field": "_id",
+      "description": "MongoDB ObjectId uniquely identifying the payment gateway record in the PaymentGateways collection."
+    },
+    {
+      "field": "__v",
+      "description": "Internal Mongoose version key for concurrency control and document versioning."
+    }
+  ],
+  "playerCategorizations": [
+    {
+      "field": "categorizationName",
+      "description": "Human-readable name of the player category (e.g., 'VIP', 'High Roller', 'Newcomer'). Used to label and segment players based on predefined criteria."
+    },
+    {
+      "field": "categorizationLevel",
+      "description": "Internal level or tier identifier for the category, used to rank or prioritize categories hierarchically within the platform."
+    },
+    {
+      "field": "categorizationColor",
+      "description": "Hex code or color name representing the category visually in dashboards or UI displays for easy identification."
+    },
+    {
+      "field": "totalPlayers",
+      "description": "Count of players currently assigned to this category. Automatically updated as players qualify or exit the category."
+    },
+    {
+      "field": "_id",
+      "description": "MongoDB ObjectId uniquely identifying the player categorization record in the PlayerCategorization collection."
+    },
+    {
+      "field": "createdAt",
+      "description": "Timestamp when the player categorization was created."
+    },
+    {
+      "field": "updatedAt",
+      "description": "Timestamp of the last update to the player categorization record."
+    },
+    {
+      "field": "__v",
+      "description": "Internal Mongoose version key used for document versioning and concurrency control."
+    }
+  ],
+  "providers": [
+    {
+      "field": "name",
+      "description": "Official name of the provider, used for identification across the platform and visible in dashboards or game listings."
+    },
+    {
+      "field": "uniqueId",
+      "description": "Unique alphanumeric identifier assigned to the provider for internal referencing and integration purposes."
+    },
+    {
+      "field": "royaltyPercentage",
+      "description": "Default royalty or revenue share percentage allocated to the provider from transactions, bets, or game revenue."
+    },
+    {
+      "field": "status",
+      "description": "Operational status of the provider within the platform. Values: Pending, Active, Inactive. Determines availability of games or services from this provider."
+    },
+    {
+      "field": "createdAt",
+      "description": "Timestamp when the provider record was created."
+    },
+    {
+      "field": "updatedAt",
+      "description": "Timestamp of the last update to the provider record."
+    },
+    {
+      "field": "iconTheme",
+      "description": "Preferred icon theme for the provider interface: Light, Dark, or Custom. Determines which icon variant is shown in the UI."
+    },
+    {
+      "field": "iconLightUrl",
+      "description": "URL pointing to the provider's light-themed icon, used when UI theme is set to light."
+    },
+    {
+      "field": "iconDarkUrl",
+      "description": "URL pointing to the provider's dark-themed icon, used when UI theme is set to dark."
+    },
+    {
+      "field": "iconCustomUrl",
+      "description": "URL pointing to the provider's custom-themed icon, used if a custom branding theme is applied."
+    },
+    {
+      "field": "backgroundColor",
+      "description": "Hex code or CSS color used for provider branding backgrounds in dashboards or game interfaces."
+    },
+    {
+      "field": "_id",
+      "description": "MongoDB ObjectId uniquely identifying the provider record in the Providers collection."
+    },
+    {
+      "field": "__v",
+      "description": "Internal Mongoose version key used for document versioning and concurrency control."
+    }
+  ],
+  "tournaments": [
+    {
+      "field": "title",
+      "description": "Official name of the tournament, used for display in dashboards, player interfaces, and reporting."
+    },
+    {
+      "field": "startDate",
+      "description": "Date and time when the tournament begins. Used to control player participation and scheduling."
+    },
+    {
+      "field": "endDate",
+      "description": "Date and time when the tournament ends. Determines when results are finalized and prizes are distributed."
+    },
+    {
+      "field": "status",
+      "description": "Operational status of the tournament. Values: Pending, Active, Inactive. Determines visibility and eligibility for players."
+    },
+    {
+      "field": "categoryId",
+      "description": "MongoDB ObjectId referencing the Category record in categories collection that classifies the tournament (e.g., game type or event type)."
+    },
+    {
+      "field": "tournamentType",
+      "description": "Type of tournament based on player activity: Deposit, Bet, or Win. Defines how points or scores are calculated."
+    },
+    {
+      "field": "description",
+      "description": "Detailed description of the tournament rules, rewards, and conditions for player participation."
+    },
+    {
+      "field": "wagerToPointRatio",
+      "description": "Conversion ratio between wagers (bets/deposits) and tournament points. Used to calculate leaderboard standings."
+    },
+    {
+      "field": "prizes",
+      "description": "Array of prize objects specifying rank-based rewards. Each prize includes rank, amount, and its unique MongoDB _id."
+    },
+    {
+      "field": "imageUrl",
+      "description": "URL pointing to the tournament banner or image, used in UI dashboards and promotional materials."
+    },
+    {
+      "field": "_id",
+      "description": "MongoDB ObjectId uniquely identifying the tournament record in the Tournaments collection."
+    },
+    {
+      "field": "updatedAt",
+      "description": "Timestamp of the last update to the tournament record."
+    },
+    {
+      "field": "createdAt",
+      "description": "Timestamp when the tournament record was created."
+    },
+    {
+      "field": "__v",
+      "description": "Internal Mongoose version key used for document versioning and concurrency control."
+    }
+  ],
+  "games": [
+    {
+      "field": "masterProviderId",
+      "description": "MongoDB ObjectId referencing the master provider that owns or manages this game globally across multiple providers."
+    },
+    {
+      "field": "providerId",
+      "description": "MongoDB ObjectId referencing the Provider record for this specific game instance. Defines which provider supplies the game content."
+    },
+    {
+      "field": "categoryIds",
+      "description": "Array of MongoDB ObjectIds referencing Category records. Used to classify the game into categories such as Slots, Live Casino, Table Games, Sports, etc."
+    },
+    {
+      "field": "name",
+      "description": "Human-readable title of the game as displayed to players on UI and dashboards."
+    },
+    {
+      "field": "notes",
+      "description": "Internal remarks or operational notes about the game for administrative usage, invisible to players."
+    },
+    {
+      "field": "status",
+      "description": "Current operational availability of the game. Values: Pending, Active, Inactive. Determines player access and visibility."
+    },
+    {
+      "field": "launchUrl",
+      "description": "URL used to launch the game client. Accessed by operators or players when gameplay is initiated."
+    },
+    {
+      "field": "imageUrl",
+      "description": "URL for the game thumbnail or banner used in frontend display such as lobbies and recommendations."
+    },
+    {
+      "field": "imageAvailable",
+      "description": "Boolean value indicating whether an image is available for the game. Used for fallback display handling."
+    },
+    {
+      "field": "createdAt",
+      "description": "Timestamp representing the creation date of the game record."
+    },
+    {
+      "field": "updatedAt",
+      "description": "Timestamp representing the last time the game record was updated."
+    },
+    {
+      "field": "sortDate",
+      "description": "Date value used for sorting and prioritizing games based on relevance or recent updates."
+    },
+    {
+      "field": "_id",
+      "description": "MongoDB ObjectId uniquely identifying the game in the Games collection."
+    },
+    {
+      "field": "__v",
+      "description": "Mongoose internal version key used to maintain document revision history and locking."
+    }
+  ],
+  "categories": [
+    {
+      "field": "name",
+      "description": "Display name of the category (e.g., Slots, Roulette, Top Games). Used for UI grouping, filtering, and reporting."
+    },
+    {
+      "field": "index",
+      "description": "Sorting order used to arrange categories visually in dashboards and gaming interfaces. Lower values appear first."
+    },
+    {
+      "field": "status",
+      "description": "Operational state of the category. Values: Pending, Active, Inactive. Determines whether games under this category are displayed or hidden."
+    },
+    {
+      "field": "providerIds",
+      "description": "List of MongoDB ObjectIds referencing Provider records associated with this category. Defines which providers contribute games to the category."
+    },
+    {
+      "field": "createdAt",
+      "description": "Timestamp marking when the category was initially created in the system."
+    },
+    {
+      "field": "updatedAt",
+      "description": "Timestamp of the most recent modification to the category record."
+    },
+    {
+      "field": "_id",
+      "description": "MongoDB ObjectId uniquely identifying the category within the Categories collection."
+    },
+    {
+      "field": "__v",
+      "description": "Internal Mongoose version key used for document versioning and concurrency control."
+    }
+  ],
+  "communications": [
+    {
+      "field": "campaignCommunicationId",
+      "description": "MongoDB ObjectId referencing another Communication record in the same collection when this message is part of a campaign chain."
+    },
+    {
+      "field": "playerId",
+      "description": "MongoDB ObjectId referencing the Player to whom the communication is addressed."
+    },
+    {
+      "field": "masterAccountId",
+      "description": "MongoDB ObjectId referencing the master/admin account that triggered or owns the communication."
+    },
+    {
+      "field": "type",
+      "description": "Medium used for sending the communication. Allowed values: Mail or SMS."
+    },
+    {
+      "field": "status",
+      "description": "State of the communication process. Possible values: Initiated, Success, or Failed."
+    },
+    {
+      "field": "isCampaign",
+      "description": "Boolean indicating whether the communication is part of a promotional campaign or an individual message."
+    },
+    {
+      "field": "recipients",
+      "description": "Array of recipient identifiers or contact values that the communication is sent to (e.g., email addresses or phone numbers)."
+    },
+    {
+      "field": "email",
+      "description": "Email address to which the message is sent, if communication type is Mail."
+    },
+    {
+      "field": "phone",
+      "description": "Phone number to which the message is sent, if communication type is SMS."
+    },
+    {
+      "field": "subject",
+      "description": "Title or subject line of the email or SMS message, used primarily for email communications."
+    },
+    {
+      "field": "content",
+      "description": "Actual body text of the message delivered to the recipient(s)."
+    },
+    {
+      "field": "sentAt",
+      "description": "Timestamp when the communication was dispatched to the messaging provider."
+    },
+    {
+      "field": "response",
+      "description": "Response returned from the email/SMS provider after sending, typically used for delivery validation."
+    },
+    {
+      "field": "error",
+      "description": "Error message logged if sending fails, used for debugging and reporting."
+    },
+    {
+      "field": "selectedEmailId",
+      "description": "MongoDB ObjectId referencing EmailCredential to determine which email configuration was used for sending."
+    },
+    {
+      "field": "_id",
+      "description": "MongoDB ObjectId uniquely identifying the communication record."
+    },
+    {
+      "field": "__v",
+      "description": "Mongoose internal version key for concurrency control and update tracking."
+    }
+  ],
+  "emailCredentials": [
+    {
+      "field": "mailHost",
+      "description": "Hostname or SMTP server address used for sending outbound emails (e.g., smtp.gmail.com, smtp.sendgrid.net)."
+    },
+    {
+      "field": "mailPort",
+      "description": "Port number used for SMTP communication. Common values include 465 for SSL and 587 for TLS."
+    },
+    {
+      "field": "mailStatus",
+      "description": "Current operational state of the email configuration. Values: Pending, Active, Inactive."
+    },
+    {
+      "field": "mailTls",
+      "description": "Boolean that determines whether TLS encryption is enabled for secure email transmission. Defaults to false."
+    },
+    {
+      "field": "mailSenderName",
+      "description": "Display name shown as the sender when recipients receive the email (e.g., Casino Support)."
+    },
+    {
+      "field": "mailSenderEmail",
+      "description": "Email address used as the sending origin for outbound messages."
+    },
+    {
+      "field": "mailSenderPassword",
+      "description": "Password or API key used for authentication with the SMTP mail server."
+    },
+    {
+      "field": "_id",
+      "description": "MongoDB ObjectId uniquely identifying the EmailCredential record."
+    },
+    {
+      "field": "updatedAt",
+      "description": "Timestamp indicating when the email credential record was last modified."
+    },
+    {
+      "field": "createdAt",
+      "description": "Timestamp marking when the email credential record was initially created."
+    },
+    {
+      "field": "__v",
+      "description": "Mongoose internal version key used for document versioning and conflict resolution."
+    }
+  ],
+  "emailTemplates": [
+    {
+      "field": "name",
+      "description": "Display name used to identify the email template within admin dashboards and configuration screens."
+    },
+    {
+      "field": "htmlContent",
+      "description": "HTML markup that defines the body of the email template, including placeholders for dynamic values."
+    },
+    {
+      "field": "type",
+      "description": "Specifies whether the template is automatic system-generated (Automate) or custom-created by an admin (Custom). Default is Custom."
+    },
+    {
+      "field": "automateType",
+      "description": "Indicates the automated email event type when type is Automate. Examples: Player_Register, Forgot_Password, Deposit_Success, Withdraw_Request."
+    },
+    {
+      "field": "_id",
+      "description": "MongoDB ObjectId uniquely identifying the email template record."
+    },
+    {
+      "field": "updatedAt",
+      "description": "Timestamp representing the last modification to the email template."
+    },
+    {
+      "field": "createdAt",
+      "description": "Timestamp marking when the email template record was initially created."
+    },
+    {
+      "field": "__v",
+      "description": "Mongoose internal version number used for concurrency control."
+    }
+  ]
+}

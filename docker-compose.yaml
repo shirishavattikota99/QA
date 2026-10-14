@@ -1,0 +1,21 @@
+networks:
+  casino_network:
+    name: casino_network
+    driver: bridge
+    external: true
+  database_network:
+    name: database_network
+    driver: bridge
+    external: true
+
+services:
+  app:
+    build: .
+    container_name: ciq-ai-app
+    restart: always
+    ports:
+      - 0.0.0.0:${PORT:-8000}:${PORT:-8000}
+    env_file:
+      - .env
+    volumes:
+      - .:/app

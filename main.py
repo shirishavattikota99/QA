@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, status
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
+<<<<<<< HEAD
 from fastapi.responses import FileResponse
 from pathlib import Path
 
@@ -24,6 +25,13 @@ from app.db import (
     list_conversations,
     save_chat,
 )
+=======
+from pydantic import BaseModel
+
+load_dotenv()
+
+from app.db import close_db, get_history, init_db, save_chat
+>>>>>>> origin/main
 from app.graph import ask
 from app.helpers.logger import logger
 from app.helpers.utils import getMongoDbUri
@@ -57,9 +65,12 @@ class PromptMessage(BaseModel):
     aiLlm: Literal["Gemini", "OpenAi"]
     nodeEnv: Literal["production", "development", "local"]
     appClient: Literal["CORE", "3XE"]
+<<<<<<< HEAD
     # Turns of one chat share this id. Send the same id with every message of a chat and a
     # follow-up ("and last month?") is understood in the context of the earlier questions.
     conversationId: Optional[str] = Field(default=None, max_length=64)
+=======
+>>>>>>> origin/main
 
 
 class AiResponsePayload(BaseModel):
@@ -95,7 +106,10 @@ async def root():
 @app.post("/api/ai-prompt", dependencies=[Depends(authenticate_api_key)])
 async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
     started = time.perf_counter()
+<<<<<<< HEAD
     conversation_id = (payload.conversationId or "").strip() or None
+=======
+>>>>>>> origin/main
 
     def elapsed_ms() -> int:
         return int((time.perf_counter() - started) * 1000)
@@ -116,6 +130,7 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
 
         mongo_uri = resolve_mongo_uri(payload)
 
+<<<<<<< HEAD
         # Conversation continuity: a follow-up is rewritten into a standalone question using
         # the earlier turns of the same conversation. First questions are passed through as-is.
         resolved = payload.prompt.strip()
@@ -127,6 +142,14 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
         result = await run_in_threadpool(ask, resolved, mongo_uri)
 
         record = dict(
+=======
+        # The graph is synchronous; run it in a worker thread so the server stays responsive
+        result = await run_in_threadpool(ask, payload.prompt, mongo_uri)
+
+        # Save after the response is sent, so history never slows down or breaks the chat
+        background_tasks.add_task(
+            save_chat,
+>>>>>>> origin/main
             partner_id=payload.partnerId,
             app_client=payload.appClient,
             node_env=payload.nodeEnv,
@@ -138,6 +161,7 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
             duration_ms=elapsed_ms(),
             route=result["route"],
             sources=[f"{x['type']}:{x['name']}" for x in result["sources"]],
+<<<<<<< HEAD
             conversation_id=conversation_id,
             resolved_question=resolved if resolved != payload.prompt.strip() else None,
         )
@@ -147,6 +171,9 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
         else:
             # Save after the response is sent, so history never slows down or breaks the chat
             background_tasks.add_task(save_chat, **record)
+=======
+        )
+>>>>>>> origin/main
 
         return {
             "success": True,
@@ -155,6 +182,7 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
                 "type": "Text",
                 "route": result["route"],      # "database", "documents" or "both"
                 "sources": result["sources"],  # e.g. [{"type": "database", "name": "transactions"}]
+<<<<<<< HEAD
                 "conversationId": conversation_id,
                 # What was actually asked, when a follow-up was rewritten (else null)
                 "resolvedQuestion": record["resolved_question"],
@@ -165,6 +193,8 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
                 # Raw query error / model text can contain internals: development only
                 "queryError": result.get("error") if payload.nodeEnv != "production" else None,
                 "modelNote": result.get("model_note") if payload.nodeEnv != "production" else None,
+=======
+>>>>>>> origin/main
             },
         }
 
@@ -182,7 +212,10 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
             success=False,
             error=str(e),
             duration_ms=elapsed_ms(),
+<<<<<<< HEAD
             conversation_id=conversation_id,
+=======
+>>>>>>> origin/main
         )
         # Real message outside production; generic in production (it can contain internals)
         detail = str(e) if payload.nodeEnv != "production" else "Something went wrong. Please try again."
@@ -196,6 +229,7 @@ async def ai_history(partnerId: str, limit: int = 50):
     return {"success": True, "data": rows}
 
 
+<<<<<<< HEAD
 @app.get("/api/ai-conversations", dependencies=[Depends(authenticate_api_key)])
 async def ai_conversations(partnerId: str, limit: int = 50):
     """Saved chats for one partner, newest first (id, title, number of turns, times)."""
@@ -219,6 +253,8 @@ async def chat_page():
     return FileResponse(CHAT_PAGE)
 
 
+=======
+>>>>>>> origin/main
 # run the app
 if __name__ == "__main__":
     import uvicorn

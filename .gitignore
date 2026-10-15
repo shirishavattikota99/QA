@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 .env
 env/
 .venv/
 __pycache__/
 *.pyc
+=======
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+>>>>>>> origin/main

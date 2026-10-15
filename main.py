@@ -7,11 +7,23 @@ from dotenv import load_dotenv
 from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, status
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from fastapi.responses import FileResponse
+from pathlib import Path
+
+from pydantic import BaseModel, Field
 
 load_dotenv()
 
-from app.db import close_db, get_history, init_db, save_chat
+from app.conversation import resolve_followup
+from app.db import (
+    close_db,
+    get_conversation,
+    get_conversation_turns,
+    get_history,
+    init_db,
+    list_conversations,
+    save_chat,
+)
 from app.graph import ask
 from app.helpers.logger import logger
 from app.helpers.utils import getMongoDbUri
@@ -45,6 +57,9 @@ class PromptMessage(BaseModel):
     aiLlm: Literal["Gemini", "OpenAi"]
     nodeEnv: Literal["production", "development", "local"]
     appClient: Literal["CORE", "3XE"]
+    # Turns of one chat share this id. Send the same id with every message of a chat and a
+    # follow-up ("and last month?") is understood in the context of the earlier questions.
+    conversationId: Optional[str] = Field(default=None, max_length=64)
 
 
 class AiResponsePayload(BaseModel):
@@ -80,6 +95,7 @@ async def root():
 @app.post("/api/ai-prompt", dependencies=[Depends(authenticate_api_key)])
 async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
     started = time.perf_counter()
+    conversation_id = (payload.conversationId or "").strip() or None
 
     def elapsed_ms() -> int:
         return int((time.perf_counter() - started) * 1000)
@@ -100,12 +116,17 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
 
         mongo_uri = resolve_mongo_uri(payload)
 
-        # The graph is synchronous; run it in a worker thread so the server stays responsive
-        result = await run_in_threadpool(ask, payload.prompt, mongo_uri)
+        # Conversation continuity: a follow-up is rewritten into a standalone question using
+        # the earlier turns of the same conversation. First questions are passed through as-is.
+        resolved = payload.prompt.strip()
+        if conversation_id:
+            turns = await run_in_threadpool(get_conversation_turns, payload.partnerId, conversation_id)
+            resolved = await run_in_threadpool(resolve_followup, resolved, turns)
 
-        # Save after the response is sent, so history never slows down or breaks the chat
-        background_tasks.add_task(
-            save_chat,
+        # The graph is synchronous; run it in a worker thread so the server stays responsive
+        result = await run_in_threadpool(ask, resolved, mongo_uri)
+
+        record = dict(
             partner_id=payload.partnerId,
             app_client=payload.appClient,
             node_env=payload.nodeEnv,
@@ -117,7 +138,15 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
             duration_ms=elapsed_ms(),
             route=result["route"],
             sources=[f"{x['type']}:{x['name']}" for x in result["sources"]],
+            conversation_id=conversation_id,
+            resolved_question=resolved if resolved != payload.prompt.strip() else None,
         )
+        if conversation_id:
+            # Save before replying: the user's next follow-up reads this turn back as context
+            await run_in_threadpool(lambda: save_chat(**record))
+        else:
+            # Save after the response is sent, so history never slows down or breaks the chat
+            background_tasks.add_task(save_chat, **record)
 
         return {
             "success": True,
@@ -126,6 +155,16 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
                 "type": "Text",
                 "route": result["route"],      # "database", "documents" or "both"
                 "sources": result["sources"],  # e.g. [{"type": "database", "name": "transactions"}]
+                "conversationId": conversation_id,
+                # What was actually asked, when a follow-up was rewritten (else null)
+                "resolvedQuestion": record["resolved_question"],
+                # For the "Generated query" panel (every attempt, retries included)
+                "generatedQuery": result["query"],
+                "rowCount": result["row_count"],
+                "durationMs": record["duration_ms"],
+                # Raw query error / model text can contain internals: development only
+                "queryError": result.get("error") if payload.nodeEnv != "production" else None,
+                "modelNote": result.get("model_note") if payload.nodeEnv != "production" else None,
             },
         }
 
@@ -143,6 +182,7 @@ async def ai_chat(payload: PromptMessage, background_tasks: BackgroundTasks):
             success=False,
             error=str(e),
             duration_ms=elapsed_ms(),
+            conversation_id=conversation_id,
         )
         # Real message outside production; generic in production (it can contain internals)
         detail = str(e) if payload.nodeEnv != "production" else "Something went wrong. Please try again."
@@ -154,6 +194,29 @@ async def ai_history(partnerId: str, limit: int = 50):
     """Latest saved questions and answers for one partner."""
     rows = await run_in_threadpool(get_history, partnerId, limit)
     return {"success": True, "data": rows}
+
+
+@app.get("/api/ai-conversations", dependencies=[Depends(authenticate_api_key)])
+async def ai_conversations(partnerId: str, limit: int = 50):
+    """Saved chats for one partner, newest first (id, title, number of turns, times)."""
+    rows = await run_in_threadpool(list_conversations, partnerId, limit)
+    return {"success": True, "data": rows}
+
+
+@app.get("/api/ai-conversation", dependencies=[Depends(authenticate_api_key)])
+async def ai_conversation(partnerId: str, conversationId: str):
+    """Every question and answer of one saved chat, oldest first."""
+    rows = await run_in_threadpool(get_conversation, partnerId, conversationId)
+    return {"success": True, "data": rows}
+
+
+CHAT_PAGE = Path(__file__).resolve().parent / "static" / "chat.html"
+
+
+@app.get("/chat", include_in_schema=False)
+async def chat_page():
+    """The chat web page. It calls the /api endpoints above on the same server."""
+    return FileResponse(CHAT_PAGE)
 
 
 # run the app

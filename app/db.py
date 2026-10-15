@@ -47,8 +47,13 @@ CREATE TABLE IF NOT EXISTS chat_history (
 -- for tables created before route/sources existed
 ALTER TABLE chat_history ADD COLUMN IF NOT EXISTS route TEXT;
 ALTER TABLE chat_history ADD COLUMN IF NOT EXISTS sources TEXT[];
+-- conversation continuity: turns of one chat share a conversation_id
+ALTER TABLE chat_history ADD COLUMN IF NOT EXISTS conversation_id TEXT;
+ALTER TABLE chat_history ADD COLUMN IF NOT EXISTS resolved_question TEXT;
 CREATE INDEX IF NOT EXISTS idx_chat_history_partner_created
     ON chat_history (partner_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_chat_history_conversation
+    ON chat_history (partner_id, conversation_id, created_at);
 """
 
 # ---------------------------------------------------------------------------
@@ -69,11 +74,21 @@ CREATE TABLE IF NOT EXISTS chat_history (
     row_count       INTEGER,
     duration_ms     INTEGER,
     route           TEXT,
-    sources         TEXT
+    sources         TEXT,
+    conversation_id   TEXT,
+    resolved_question TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_chat_history_partner_created
     ON chat_history (partner_id, created_at DESC);
 """
+
+# Columns added after the first release. SQLite has no "ADD COLUMN IF NOT EXISTS",
+# so init_db adds whichever of these an older chat_history.db file is missing.
+SQLITE_NEW_COLUMNS = {"conversation_id": "TEXT", "resolved_question": "TEXT"}
+SQLITE_CONVERSATION_INDEX = (
+    "CREATE INDEX IF NOT EXISTS idx_chat_history_conversation "
+    "ON chat_history (partner_id, conversation_id, created_at)"
+)
 
 
 def _sqlite_connect() -> sqlite3.Connection:
@@ -121,6 +136,11 @@ def init_db() -> bool:
         _sqlite_path = os.getenv("SQLITE_PATH", str(default))
         with _sqlite_connect() as conn:
             conn.executescript(SQLITE_SCHEMA)
+            existing = {row["name"] for row in conn.execute("PRAGMA table_info(chat_history)")}
+            for column, ctype in SQLITE_NEW_COLUMNS.items():
+                if column not in existing:
+                    conn.execute(f"ALTER TABLE chat_history ADD COLUMN {column} {ctype}")
+            conn.execute(SQLITE_CONVERSATION_INDEX)
         _backend = "sqlite"
         logger.info("Chat history enabled (SQLite file: %s)", _sqlite_path)
         return True
@@ -151,6 +171,8 @@ def save_chat(
     duration_ms: Optional[int] = None,
     route: Optional[str] = None,
     sources: Optional[list] = None,
+    conversation_id: Optional[str] = None,
+    resolved_question: Optional[str] = None,
 ) -> None:
     """Insert one question/answer. Never raises: saving must not break the chat."""
     if _backend is None:
@@ -163,11 +185,13 @@ def save_chat(
                     """
                     INSERT INTO chat_history
                         (partner_id, app_client, node_env, question, answer, success,
-                         error, generated_query, row_count, duration_ms, route, sources)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                         error, generated_query, row_count, duration_ms, route, sources,
+                         conversation_id, resolved_question)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """,
                     (partner_id, app_client, node_env, question, answer, success,
-                     error, generated_query, row_count, duration_ms, route, sources or None),
+                     error, generated_query, row_count, duration_ms, route, sources or None,
+                     conversation_id, resolved_question),
                 )
         else:
             with _sqlite_connect() as conn:
@@ -175,12 +199,14 @@ def save_chat(
                     """
                     INSERT INTO chat_history
                         (partner_id, app_client, node_env, question, answer, success,
-                         error, generated_query, row_count, duration_ms, route, sources)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                         error, generated_query, row_count, duration_ms, route, sources,
+                         conversation_id, resolved_question)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (partner_id, app_client, node_env, question, answer, int(success),
                      error, generated_query, row_count, duration_ms, route,
-                     json.dumps(sources) if sources else None),
+                     json.dumps(sources) if sources else None,
+                     conversation_id, resolved_question),
                 )
     except Exception as e:
         logger.error("Could not save chat history: %s", e)
@@ -217,3 +243,73 @@ def get_history(partner_id: str, limit: int = 50) -> list[dict]:
         d["sources"] = json.loads(d["sources"]) if d["sources"] else None
         result.append(d)
     return result
+
+# ---------------------------------------------------------------------------
+# Conversations: turns of one chat share a conversation_id
+# ---------------------------------------------------------------------------
+def _fetch(sql: str, params: tuple) -> list[dict]:
+    """Run a SELECT on either backend. `sql` uses %s placeholders (SQLite gets ?)."""
+    if _backend == "postgres":
+        from psycopg.rows import dict_row
+
+        with _pool.connection() as conn:
+            with conn.cursor(row_factory=dict_row) as cur:
+                cur.execute(sql, params)
+                return cur.fetchall()
+    with _sqlite_connect() as conn:
+        return [dict(r) for r in conn.execute(sql.replace("%s", "?"), params).fetchall()]
+
+
+def _clean_row(row: dict) -> dict:
+    row = dict(row)
+    if "success" in row:
+        row["success"] = bool(row["success"])
+    if isinstance(row.get("sources"), str):
+        row["sources"] = json.loads(row["sources"])
+    return row
+
+
+def get_conversation(partner_id: str, conversation_id: str, limit: int = 100) -> list[dict]:
+    """All turns of one conversation, oldest first (for showing a saved chat)."""
+    if _backend is None or not conversation_id:
+        return []
+    limit = max(1, min(limit, 200))
+    cols = ", ".join(c for c in COLUMNS if c != "id") + ", resolved_question"
+    rows = _fetch(
+        f"SELECT {cols} FROM chat_history WHERE partner_id = %s AND conversation_id = %s "
+        "ORDER BY created_at, id LIMIT %s",
+        (partner_id, conversation_id, limit),
+    )
+    return [_clean_row(r) for r in rows]
+
+
+def get_conversation_turns(partner_id: str, conversation_id: str, limit: int = 6) -> list[dict]:
+    """The most recent SUCCESSFUL turns of a conversation, oldest first (for follow-ups)."""
+    if _backend is None or not conversation_id:
+        return []
+    limit = max(1, min(limit, 20))
+    rows = _fetch(
+        "SELECT question, resolved_question, answer FROM chat_history "
+        "WHERE partner_id = %s AND conversation_id = %s AND success = %s AND answer IS NOT NULL "
+        "ORDER BY created_at DESC, id DESC LIMIT %s",
+        (partner_id, conversation_id, True if _backend == "postgres" else 1, limit),
+    )
+    return list(reversed(rows))
+
+
+def list_conversations(partner_id: str, limit: int = 50) -> list[dict]:
+    """One row per conversation, newest first: id, title (first question), turns, times."""
+    if _backend is None:
+        return []
+    limit = max(1, min(limit, 100))
+    rows = _fetch(
+        "SELECT h.conversation_id AS conversation_id, COUNT(*) AS turns, "
+        "MIN(h.created_at) AS started_at, MAX(h.created_at) AS updated_at, "
+        "(SELECT h2.question FROM chat_history h2 "
+        "  WHERE h2.partner_id = h.partner_id AND h2.conversation_id = h.conversation_id "
+        "  ORDER BY h2.created_at, h2.id LIMIT 1) AS title "
+        "FROM chat_history h WHERE h.partner_id = %s AND h.conversation_id IS NOT NULL "
+        "GROUP BY h.partner_id, h.conversation_id ORDER BY MAX(h.created_at) DESC LIMIT %s",
+        (partner_id, limit),
+    )
+    return rows
